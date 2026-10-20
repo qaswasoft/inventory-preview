@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mushak-6.3 INV-2026-0001</title>
+    <style>
+        @page { size: A4; margin: 12mm; }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10pt;
+            color: #000;
+            margin: 0 auto;
+            max-width: 190mm;
+            padding: 8mm 0;
+        }
+
+        .no-print { text-align: center; margin-bottom: 6mm; }
+
+        .no-print button {
+            padding: 8px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 0;
+            border-radius: 6px;
+            background: #111827;
+            color: #fff;
+        }
+
+        .head { text-align: center; position: relative; margin-bottom: 5mm; }
+        .head .gov { font-size: 10pt; }
+        .head .nbr { font-size: 11pt; font-weight: bold; }
+        .head .title { font-size: 13pt; font-weight: bold; margin-top: 2mm; text-transform: uppercase; }
+        .head .rule { font-size: 8.5pt; }
+        .form-no {
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 1px solid #000;
+            padding: 1mm 3mm;
+            font-weight: bold;
+        }
+
+        .parties { width: 100%; border-collapse: collapse; margin-bottom: 4mm; }
+        .parties td { vertical-align: top; padding: 0.8mm 0; }
+        .parties .lbl { width: 42mm; color: #333; }
+        .warn { color: #b91c1c; font-weight: bold; }
+
+        table.items { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+        table.items th, table.items td { border: 1px solid #000; padding: 1.2mm 1.4mm; }
+        table.items th { background: #f3f4f6; font-weight: bold; text-align: center; }
+        table.items td.r { text-align: right; white-space: nowrap; }
+        table.items td.c { text-align: center; }
+        table.items tr.total td { font-weight: bold; }
+        .colno td { text-align: center; font-size: 7.5pt; color: #444; padding: 0.6mm; }
+
+        table.summary { margin-left: auto; margin-top: 3mm; border-collapse: collapse; min-width: 75mm; }
+        table.summary td { padding: 1mm 2mm; }
+        table.summary td.r { text-align: right; }
+        table.summary tr.grand td { border-top: 1.5px solid #000; font-weight: bold; font-size: 11pt; }
+
+        .sign { margin-top: 18mm; display: flex; justify-content: flex-end; }
+        .sign div { width: 80mm; border-top: 1px solid #000; padding-top: 1.5mm; text-align: center; font-size: 9pt; }
+
+        .foot { margin-top: 6mm; font-size: 8pt; color: #444; }
+
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none !important; }
+            table.items th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+
+<link rel="stylesheet" href="../../../../demo/demo.css"></head>
+
+<body>
+
+    <div class="no-print">
+        <button type="button" onclick="window.print()">Print Mushak-6.3</button>
+    </div>
+
+    <div class="head">
+        <div class="form-no">Mushak-6.3</div>
+        <div class="gov">Government of the People's Republic of Bangladesh</div>
+        <div class="nbr">National Board of Revenue</div>
+        <div class="title">Tax Invoice</div>
+                    <div class="rule">[See clause (c) and (f) of Sub-rule (1) of Rule 40]</div>
+            </div>
+
+    <table class="parties">
+        <tr>
+            <td class="lbl">Name of registered person:</td>
+            <td><strong>My Company</strong></td>
+        </tr>
+        <tr>
+            <td class="lbl">BIN of registered person:</td>
+            <td>
+                                    <span class="warn">BIN not set — add it in Settings</span>
+                            </td>
+        </tr>
+        <tr>
+            <td class="lbl">Address of issuing point:</td>
+            <td>— (Main Warehouse)</td>
+        </tr>
+        <tr><td colspan="2" style="height:2mm"></td></tr>
+        <tr>
+            <td class="lbl">Name of buyer:</td>
+            <td>Muhammad Mus&#039;ab</td>
+        </tr>
+        <tr>
+            <td class="lbl">BIN of buyer:</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td class="lbl">Address of buyer:</td>
+            <td>—</td>
+        </tr>
+                    <tr>
+                <td class="lbl">Phone of buyer:</td>
+                <td>01711000001</td>
+            </tr>
+                <tr><td colspan="2" style="height:2mm"></td></tr>
+        <tr>
+            <td class="lbl">Challan / Invoice no:</td>
+            <td><strong>INV-2026-0001</strong></td>
+        </tr>
+        <tr>
+            <td class="lbl">Date of issue:</td>
+            <td>04/10/2026</td>
+        </tr>
+        <tr>
+            <td class="lbl">Time of issue:</td>
+            <td>01:51 PM</td>
+        </tr>
+    </table>
+
+    <table class="items">
+        <thead>
+            <tr>
+                <th>Sl</th>
+                <th>Description of goods / services</th>
+                <th>Unit</th>
+                <th>Qty</th>
+                <th>Unit price (excl. VAT)</th>
+                <th>Total value (excl. VAT)</th>
+                <th>SD rate</th>
+                <th>SD amount</th>
+                <th>VAT rate</th>
+                <th>VAT amount</th>
+                <th>Total incl. all taxes</th>
+            </tr>
+            <tr class="colno">
+                                    <td>(1)</td>
+                                    <td>(2)</td>
+                                    <td>(3)</td>
+                                    <td>(4)</td>
+                                    <td>(5)</td>
+                                    <td>(6)</td>
+                                    <td>(7)</td>
+                                    <td>(8)</td>
+                                    <td>(9)</td>
+                                    <td>(10)</td>
+                                    <td>(11)</td>
+                            </tr>
+        </thead>
+        <tbody>
+                            <tr>
+                    <td class="c">1</td>
+                    <td>Teer Soyabean Oil (5L)</td>
+                    <td class="c">pcs</td>
+                    <td class="r">2</td>
+                    <td class="r">820.00</td>
+                    <td class="r">1,640.00</td>
+                    <td class="c">0%</td>
+                    <td class="r">0.00</td>
+                    <td class="c">0%</td>
+                    <td class="r">0.00</td>
+                    <td class="r">1,640.00</td>
+                </tr>
+                            <tr>
+                    <td class="c">2</td>
+                    <td>Radhuni Turmeric Powder (200g)</td>
+                    <td class="c">pcs</td>
+                    <td class="r">3</td>
+                    <td class="r">65.00</td>
+                    <td class="r">195.00</td>
+                    <td class="c">0%</td>
+                    <td class="r">0.00</td>
+                    <td class="c">0%</td>
+                    <td class="r">0.00</td>
+                    <td class="r">195.00</td>
+                </tr>
+                        <tr class="total">
+                <td colspan="5" class="r">Total</td>
+                <td class="r">1,835.00</td>
+                <td></td>
+                <td class="r">0.00</td>
+                <td></td>
+                <td class="r">0.00</td>
+                <td class="r">1,835.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="summary">
+                                <tr class="grand">
+            <td>Grand total</td>
+            <td class="r">$1,835.00</td>
+        </tr>
+    </table>
+
+    <div class="sign">
+        <div>
+            Name, designation and signature of authorised person
+                            <br><strong>Admin User</strong>
+                    </div>
+    </div>
+
+    <div class="foot">
+        * SD = Supplementary Duty. Values are shown in USD.
+    </div>
+
+    <script>
+        window.addEventListener('load', () => window.print());
+    </script>
+
+<script defer src="../../../../demo/data.js"></script><script defer src="../../../../demo/store.js"></script><script defer src="../../../../demo/receipt.js"></script><script defer src="../../../../demo/search.js"></script><script defer src="../../../../demo/lists.js"></script><script defer src="../../../../demo/pos.js"></script><script defer src="../../../../demo/forms.js"></script><script defer src="../../../../demo/demo.js" data-role="manager" data-path="/invoices/1/mushak" data-root="../../../../"></script></body>
+
+</html>

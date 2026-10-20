@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventory — interactive demo</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#fafafa;--card:#fff;--ink:#18181b;--mut:#71717a;--line:#e4e4e7;--p:#5b5fe0;--pb:#eef0ff}
+@media (prefers-color-scheme:dark){:root{--bg:#18181b;--card:#27272a;--ink:#fafafa;--mut:#a1a1aa;--line:#3f3f46;--p:#8b8ff5;--pb:#6d71f026}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Instrument Sans',ui-sans-serif,system-ui,'Segoe UI',sans-serif}
+main{max-width:56rem;margin:0 auto;padding:3.5rem 1.2rem 4rem}
+.logo{display:inline-grid;place-items:center;width:2.6rem;height:2.6rem;border-radius:.8rem;background:var(--p);color:#fff;font-weight:700;font-size:1.2rem}
+h1{font-size:2.1rem;letter-spacing:-.02em;margin:1rem 0 .4rem}
+.lead{color:var(--mut);max-width:40rem;margin:0}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin:2rem 0}
+a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.2rem;transition:.15s}
+a.card:hover{border-color:var(--p);transform:translateY(-2px);box-shadow:0 8px 24px #0002}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:.1rem .55rem;border-radius:.4rem;background:var(--pb);color:var(--p)}
+.card h2{font-size:1.15rem;margin:.6rem 0 .25rem}.card p{margin:0;color:var(--mut);font-size:.9rem}
+.card code{font-size:.78rem;background:var(--pb);padding:.05rem .35rem;border-radius:.3rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.2rem 1.4rem;margin-bottom:1rem}
+.panel h3{margin:0 0 .5rem;font-size:1rem}.panel ul{margin:0;padding-left:1.2rem;color:var(--mut);font-size:.92rem}.panel li{margin:.2rem 0}
+button{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:.6rem;padding:.5rem .9rem;cursor:pointer}
+button:hover{border-color:var(--p)}
+small{color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+  <span class="logo">S</span>
+  <h1>Inventory — interactive demo</h1>
+  <p class="lead">A click-through copy of the Laravel inventory &amp; POS app, built from the real pages of the running app with the seeded sample data. Nothing is sent to a server: any change you make is kept only in this browser.</p>
+
+  <div class="grid">
+    <a class="card" href="admin/dashboard/index.html"><span class="tag">Full access</span><h2>Admin</h2><p>Everything: partnership, settings, users, roles, warehouses.</p><p style="margin-top:.6rem"><code>admin@inventory.com</code></p></a>
+    <a class="card" href="manager/dashboard/index.html"><span class="tag">Operations</span><h2>Manager</h2><p>Sales, purchasing, stock, reports and finance, without admin-only areas.</p><p style="margin-top:.6rem"><code>manager@inventory.com</code></p></a>
+    <a class="card" href="staff/dashboard/index.html"><span class="tag">Counter</span><h2>Staff</h2><p>POS terminal, stock count, customers, invoices and their own shift.</p><p style="margin-top:.6rem"><code>staff@inventory.com</code></p></a>
+    <a class="card" href="guest/login/index.html"><span class="tag">Public</span><h2>Sign-in page</h2><p>The login screen. Any password works here; the email picks the role.</p></a>
+  </div>
+
+  <div class="panel"><h3>What works in the demo</h3>
+    <ul>
+      <li>Every page, menu and dialog looks exactly like the real app (same compiled CSS, fonts and markup).</li>
+      <li>Switch role any time with the pill at the bottom-left of each page.</li>
+      <li>Search and filters on lists, delete confirmations, form validation, and “saving” that sticks in your browser.</li>
+      <li>Dark / light mode from the account menu.</li>
+    </ul>
+  </div>
+  <div class="panel"><h3>What does not</h3>
+    <ul>
+      <li>There is no database or server, so lists don't re-sort or paginate, and new records don't appear in tables.</li>
+      <li>Payments, SMS, PDF downloads and imports are not wired up.</li>
+    </ul>
+  </div>
+  <p><button type="button" id="reset">Reset demo data</button> <small id="msg"></small></p>
+</main>
+<script>
+document.getElementById('reset').onclick=function(){
+  try{Object.keys(localStorage).filter(function(k){return k.indexOf('swiftdemo:')===0}).forEach(function(k){localStorage.removeItem(k)});}catch(e){}
+  document.getElementById('msg').textContent='Done: everything stored by the demo was cleared.';
+};
+</script>
+</body>
+</html>

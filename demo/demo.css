@@ -1,0 +1,44 @@
+/* Demo layer: floating bar, fallback toast, filter panel, validation state. */
+.demo-bar{position:fixed;left:12px;bottom:12px;z-index:2147483000;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;
+  background:rgba(24,24,27,.92);color:#fafafa;font:500 12px/1 'Instrument Sans',system-ui,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35);backdrop-filter:blur(6px)}
+.demo-bar b{letter-spacing:.04em;text-transform:uppercase;font-size:10px;color:#a5b4fc}
+.demo-bar select,.demo-bar button,.demo-bar a{font:inherit;color:inherit;background:rgba(255,255,255,.1);border:0;border-radius:999px;padding:5px 10px;cursor:pointer;text-decoration:none}
+.demo-bar select{appearance:none;padding-right:10px}.demo-bar select option{color:#111}
+.demo-bar button:hover,.demo-bar a:hover,.demo-bar select:hover{background:rgba(255,255,255,.2)}
+.demo-bar .demo-x{background:none;padding:2px 6px;opacity:.6}
+.demo-bar.min{padding:6px 8px}.demo-bar.min>:not(.demo-x):not(b){display:none}
+@media (max-width:640px){.demo-bar{left:8px;right:8px;justify-content:center;flex-wrap:wrap;border-radius:16px}}
+@media print{.demo-bar{display:none}}
+
+.demo-toast{position:fixed;right:16px;bottom:16px;z-index:2147483001;max-width:22rem;padding:10px 14px;border-radius:10px;background:#18181b;color:#fff;
+  font:500 14px/1.35 'Instrument Sans',system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+
+.demo-invalid{border-color:#ef4444!important}
+[data-flux-error]:not(.hidden):empty{display:none}
+
+.demo-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;padding:1rem;margin:0 0 1rem;border:1px solid rgb(228 228 231);border-radius:.75rem}
+.dark .demo-filters{border-color:rgba(255,255,255,.1)}
+.demo-filters select{width:100%;height:2.5rem;padding:0 .75rem;border:1px solid rgb(212 212 216);border-radius:.5rem;background:#fff;color:#3f3f46;font:inherit;font-size:.875rem}
+.dark .demo-filters select{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.15);color:#e4e4e7}
+.dark .demo-filters select option{color:#111}
+@media (max-width:760px){.demo-filters{grid-template-columns:1fr 1fr}}
+
+/* Phone widths: let rows of header buttons, segmented choices and long labels wrap instead of pushing the page
+   sideways. Desktop is untouched, so the snapshots stay pixel-exact there. */
+@media (max-width:640px){
+  .flex:has(> [data-flux-button]):not(:has(> :not([data-flux-button]):not(ui-dropdown):not(ui-modal-trigger):not(template))){flex-wrap:wrap}
+  ui-radio-group[class*="h-10"]{height:auto;flex-wrap:wrap}
+  ui-radio-group ui-radio{white-space:normal;text-align:center}
+  .grid > *{min-width:0}
+  [contenteditable][data-placeholder]{min-width:0;text-overflow:ellipsis}
+  [contenteditable][data-placeholder]:empty::before{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  [data-flux-badge]{max-width:100%;white-space:normal}
+  select[data-flux-select-native]{min-width:0}
+  .flex.justify-between:has(> [data-flux-button]),.flex.justify-between:has(> a[data-flux-button]),
+  .flex.justify-between:has(> * [data-flux-heading]):has(> * [data-flux-button]){flex-wrap:wrap;row-gap:.75rem}
+  ui-field{grid-template-columns:minmax(0,1fr)}
+  ui-field > ui-label{max-width:100%}
+  table.items{display:block;overflow-x:auto} /* the printable VAT (Mushak) invoice */
+}
+
+tr.demo-empty td{padding:2rem 1rem;text-align:center;color:#71717a;font-size:.875rem}

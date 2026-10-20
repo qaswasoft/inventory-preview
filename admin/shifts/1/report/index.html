@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Z-report SH-2026-0001</title>
+    <style>
+        /* 80mm thermal roll. Printable width is ~72mm once the printer's
+           unprintable margin is accounted for. */
+        @page {
+            size: 80mm auto;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 80mm;
+            margin: 0 auto;
+            padding: 4mm;
+            background: #fff;
+            color: #000;
+            /* Monospace keeps the amount column aligned on a fixed-pitch
+               thermal head. */
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            line-height: 1.45;
+            -webkit-font-smoothing: none;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .shop {
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .muted {
+            font-size: 10px;
+        }
+
+        /* Dashed rules read as torn perforations and survive low-res heads
+           better than hairlines. */
+        .rule {
+            border-top: 1px dashed #000;
+            margin: 2.5mm 0;
+        }
+
+        .rule-solid {
+            border-top: 2px solid #000;
+            margin: 2mm 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .meta td {
+            font-size: 10px;
+            padding: 0.3mm 0;
+            vertical-align: top;
+        }
+
+        .meta td:last-child {
+            text-align: right;
+        }
+
+        .items th {
+            font-size: 10px;
+            text-transform: uppercase;
+            text-align: left;
+            padding: 1mm 0;
+            border-bottom: 1px dashed #000;
+        }
+
+        .items th.r,
+        .items td.r {
+            text-align: right;
+        }
+
+        .items td {
+            padding: 1mm 0 0;
+            vertical-align: top;
+        }
+
+        /* The product name spans the full width on its own line so long
+           names are never truncated; qty x price sits underneath. */
+        .item-name {
+            padding-top: 2mm;
+            word-break: break-word;
+        }
+
+        .totals td {
+            padding: 0.4mm 0;
+        }
+
+        .totals td:last-child {
+            text-align: right;
+        }
+
+        .grand td {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 1.5mm 0;
+        }
+
+        .thanks {
+            font-size: 11px;
+        }
+
+        .barcode {
+            margin-top: 2mm;
+            font-family: 'Libre Barcode 39', monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        @media print {
+            body {
+                padding: 2mm 4mm;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* On-screen preview: centre the roll on a grey desk so it reads as
+           a physical receipt before printing. */
+        @media screen {
+            html {
+                background: #52525b;
+                padding: 24px 0;
+                min-height: 100%;
+            }
+
+            body {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+            }
+
+            .no-print {
+                width: 80mm;
+                margin: 0 auto 12px;
+                text-align: center;
+                font-family: ui-sans-serif, system-ui, sans-serif;
+            }
+
+            .no-print button {
+                cursor: pointer;
+                border: 0;
+                border-radius: 6px;
+                background: #fff;
+                color: #18181b;
+                padding: 7px 14px;
+                font-size: 13px;
+                font-weight: 600;
+                font-family: inherit;
+            }
+        }
+    </style>
+
+<link rel="stylesheet" href="../../../../demo/demo.css"></head>
+
+<body>
+    <div class="no-print">
+        <button type="button" onclick="window.print()">Print Z-report</button>
+    </div>
+
+    <div class="center">
+        <div class="shop">My Company</div>
+                    <div class="muted">Main Warehouse</div>
+            </div>
+
+    <div class="rule-solid"></div>
+    <div class="center bold" style="letter-spacing:1px">SHIFT REPORT (Z)</div>
+    <div class="rule"></div>
+
+    <table class="meta">
+        <tr><td>Shift</td><td class="bold">SH-2026-0001</td></tr>
+        <tr><td>Cashier</td><td>Admin User</td></tr>
+        <tr><td>Opened</td><td>16/10/2026 14:02</td></tr>
+        <tr><td>Closed</td><td>still open</td></tr>
+            </table>
+
+    <div class="rule"></div>
+
+    <table class="totals">
+        <tr><td>Sales</td><td>1 / 1,244.75</td></tr>
+        <tr><td>Given on due</td><td>0.00</td></tr>
+        <tr><td>Returns</td><td>0 / 0.00</td></tr>
+    </table>
+
+    <div class="rule"></div>
+    <div class="bold">TAKINGS BY METHOD</div>
+    <table class="totals">
+                    <tr><td>Bank Transfer (1)</td><td>1,244.75</td></tr>
+                        </table>
+
+    <div class="rule"></div>
+    <div class="bold">CASH DRAWER</div>
+    <table class="totals">
+        <tr><td>Opening cash</td><td>1,000.00</td></tr>
+        <tr><td>+ Cash sales</td><td>0.00</td></tr>
+        <tr><td>− Cash refunds</td><td>0.00</td></tr>
+        <tr><td>+ Cash added</td><td>0.00</td></tr>
+        <tr><td>− Cash taken out</td><td>0.00</td></tr>
+        <tr><td>− Expenses</td><td>0.00</td></tr>
+    </table>
+    <div class="rule-solid"></div>
+    <table class="totals grand">
+        <tr><td>EXPECTED</td><td>1,000.00</td></tr>
+    </table>
+    
+    <div class="rule"></div>
+    <div class="center muted">Printed 20/10/2026 09:04</div>
+    <br><br>
+    <div class="muted">Cashier sign: ____________</div>
+    <br>
+    <div class="muted">Manager sign: ____________</div>
+
+    <script>window.addEventListener('load', () => window.print());</script>
+<script defer src="../../../../demo/data.js"></script><script defer src="../../../../demo/store.js"></script><script defer src="../../../../demo/receipt.js"></script><script defer src="../../../../demo/search.js"></script><script defer src="../../../../demo/lists.js"></script><script defer src="../../../../demo/pos.js"></script><script defer src="../../../../demo/forms.js"></script><script defer src="../../../../demo/demo.js" data-role="admin" data-path="/shifts/1/report" data-root="../../../../"></script></body>
+
+</html>

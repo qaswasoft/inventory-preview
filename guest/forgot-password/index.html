@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+    <head>
+        <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>
+    Forgot password - Inventory
+</title>
+
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+<style>
+:root {
+  --font-instrument-sans: "Instrument Sans", "Instrument Sans fallback";
+}
+
+.font-instrument-sans {
+  font-family: var(--font-instrument-sans);
+}
+</style>
+<link rel="stylesheet" href="../../build/assets/app-C-R5BbaP.css"><link rel="stylesheet" href="../../build/assets/fonts-DkuEHybc.css"><script type="module" src="../../build/assets/app-VRWLt7R7.js"></script>
+
+<style>:root{--color-primary-50: oklch(97.1% 0.023 276.966);--color-primary-100: oklch(93.6% 0.046 276.966);--color-primary-200: oklch(88.5% 0.0874 276.966);--color-primary-300: oklch(80.9% 0.1426 276.966);--color-primary-400: oklch(70.7% 0.2024 276.966);--color-primary-500: oklch(63.7% 0.2301 276.966);--color-primary-600: oklch(57.7% 0.2301 276.966);--color-primary-700: oklch(50.5% 0.2116 276.966);--color-primary-800: oklch(44.4% 0.184 276.966);--color-primary-900: oklch(39.6% 0.1564 276.966);--color-primary-950: oklch(28.4% 0.1104 276.966);--color-primary: var(--color-primary-600);--color-secondary-50: oklch(97.1% 0.0104 184.704);--color-secondary-100: oklch(93.6% 0.0208 184.704);--color-secondary-200: oklch(88.5% 0.0395 184.704);--color-secondary-300: oklch(80.9% 0.0644 184.704);--color-secondary-400: oklch(70.7% 0.0914 184.704);--color-secondary-500: oklch(63.7% 0.1038 184.704);--color-secondary-600: oklch(57.7% 0.1038 184.704);--color-secondary-700: oklch(50.5% 0.0955 184.704);--color-secondary-800: oklch(44.4% 0.0831 184.704);--color-secondary-900: oklch(39.6% 0.0706 184.704);--color-secondary-950: oklch(28.4% 0.0498 184.704);--color-secondary: var(--color-secondary-600);--color-tertiary-50: oklch(97.1% 0.0157 58.318);--color-tertiary-100: oklch(93.6% 0.0315 58.318);--color-tertiary-200: oklch(88.5% 0.0598 58.318);--color-tertiary-300: oklch(80.9% 0.0976 58.318);--color-tertiary-400: oklch(70.7% 0.1385 58.318);--color-tertiary-500: oklch(63.7% 0.1574 58.318);--color-tertiary-600: oklch(57.7% 0.1574 58.318);--color-tertiary-700: oklch(50.5% 0.1448 58.318);--color-tertiary-800: oklch(44.4% 0.1259 58.318);--color-tertiary-900: oklch(39.6% 0.107 58.318);--color-tertiary-950: oklch(28.4% 0.0756 58.318);--color-tertiary: var(--color-tertiary-600);}</style>
+
+<style>
+    :root.dark {
+        color-scheme: dark;
+    }
+</style>
+<script>
+    window.Flux = {
+        applyAppearance (appearance) {
+            let applyDark = () => document.documentElement.classList.add('dark')
+            let applyLight = () => document.documentElement.classList.remove('dark')
+
+            if (appearance === 'system') {
+                let media = window.matchMedia('(prefers-color-scheme: dark)')
+
+                window.localStorage.removeItem('flux.appearance')
+
+                media.matches ? applyDark() : applyLight()
+            } else if (appearance === 'dark') {
+                window.localStorage.setItem('flux.appearance', 'dark')
+
+                applyDark()
+            } else if (appearance === 'light') {
+                window.localStorage.setItem('flux.appearance', 'light')
+
+                applyLight()
+            }
+        }
+    }
+
+    window.Flux.applyAppearance(window.localStorage.getItem('flux.appearance') || 'system')
+</script>
+
+
+<script>
+    (() => {
+        const SEARCH = 'input[data-form-type="other"]';
+
+        const lock = (el) => {
+            if (el !== document.activeElement && !el.readOnly) el.readOnly = true;
+        };
+        const lockWithin = (root) => root.querySelectorAll?.(SEARCH).forEach(lock);
+
+        document.addEventListener('focusin', (e) => {
+            if (e.target.matches?.(SEARCH)) setTimeout(() => { e.target.readOnly = false; }, 0);
+        });
+        document.addEventListener('focusout', (e) => {
+            if (e.target.matches?.(SEARCH)) e.target.readOnly = true;
+        });
+
+        const start = () => {
+            lockWithin(document);
+
+            new MutationObserver((records) => {
+                for (const record of records) {
+                    if (record.type === 'attributes') {
+                        if (record.target.matches?.(SEARCH)) lock(record.target);
+                        continue;
+                    }
+                    for (const node of record.addedNodes) {
+                        if (node.nodeType !== 1) continue;
+                        node.matches(SEARCH) ? lock(node) : lockWithin(node);
+                    }
+                }
+            }).observe(document.body, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['readonly'],
+            });
+        };
+
+        document.readyState === 'loading'
+            ? document.addEventListener('DOMContentLoaded', start)
+            : start();
+    })();
+</script>
+    
+<!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+<link rel="stylesheet" href="../../demo/demo.css"></head>
+    <body class="min-h-screen antialiased bg-zinc-950">
+        <div class="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 py-10 short:py-4">
+            <div class="auth-gradient absolute inset-0" aria-hidden="true"></div>
+            <div class="auth-blob auth-blob-1" aria-hidden="true"></div>
+            <div class="auth-blob auth-blob-2" aria-hidden="true"></div>
+            <div class="auth-grid absolute inset-0" aria-hidden="true"></div>
+
+            <div class="auth-rise auth-glass relative z-10 flex w-full max-w-sm flex-col items-center text-white">
+                
+                <div class="relative">
+                    <span class="absolute -inset-4 animate-ping rounded-full bg-white/15 [animation-duration:2.8s]" aria-hidden="true"></span>
+                    <span class="absolute -inset-2 rounded-full bg-white/20 blur-lg" aria-hidden="true"></span>
+                    <span class="relative flex size-20 items-center justify-center rounded-full bg-linear-to-br from-white/40 to-white/10 ring-1 ring-white/40 backdrop-blur-md short:size-14">
+                        <svg class="shrink-0 [:where(&amp;)]:size-6 size-9 text-white short:size-7" data-flux-icon xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/>
+</svg>
+
+                            </span>
+                </div>
+
+                
+                <ol class="mt-8 flex items-center gap-2 text-xs font-medium text-white/60 short:mt-4">
+                                                                    <li class="flex items-center gap-2 text-white"  aria-current="step" >
+                            <span class="size-2.5 rounded-full bg-white shadow-[0_0_10px_rgb(255_255_255/0.9)]"></span>
+                            Request link
+                        </li>
+                                                                        <li class="h-px w-8 bg-white/30" aria-hidden="true"></li>
+                                                <li class="flex items-center gap-2 " >
+                            <span class="size-2.5 rounded-full ring-1 ring-white/50"></span>
+                            New password
+                        </li>
+                                    </ol>
+
+                <div class="mt-6 w-full short:mt-4">
+                    <div class="flex flex-col gap-5 text-center short:gap-4">
+        <div>
+            <h1 class="text-3xl font-semibold tracking-tight short:text-2xl">Forgot your password?</h1>
+            <p class="mt-2 text-sm text-white/70 short:hidden">No worries — we&#039;ll email you a reset link.</p>
+        </div>
+
+        <!-- Session Status -->
+        
+        <form method="POST" action="#" class="flex flex-col gap-4 text-start">
+            <input type="hidden" name="_token" value="sSNDXt7cErJ9TXS7vbVFzskHITSzPcC0eaKoCiV3" autocomplete="off">
+            <!-- Email Address -->
+            <ui-field class="min-w-0 [&amp;:not(:has([data-flux-field])):has([data-flux-control][disabled])&gt;[data-flux-label]]:opacity-50 [&amp;:has(&gt;[data-flux-radio-group][disabled])&gt;[data-flux-label]]:opacity-50 [&amp;:has(&gt;[data-flux-checkbox-group][disabled])&gt;[data-flux-label]]:opacity-50 block *:data-flux-label:mb-3 [&amp;&gt;[data-flux-label]:has(+[data-flux-description])]:mb-2 [&amp;&gt;[data-flux-label]+[data-flux-description]]:mt-0 [&amp;&gt;[data-flux-label]+[data-flux-description]]:mb-3 [&amp;&gt;*:not([data-flux-label])+[data-flux-description]]:mt-3" data-flux-field>
+    <ui-label class="inline-flex items-center text-sm font-medium  [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white [&amp;:has([data-flux-label-trailing])]:flex" data-flux-label>
+    Email address
+
+    
+    
+    </ui-label>
+        
+        
+        <div class="w-full relative block group/input" data-flux-input>
+                            <div class="pointer-events-none absolute top-0 bottom-0 border-s border-transparent flex items-center justify-center text-xs text-zinc-400/75 dark:text-white/60 ps-3 start-0">
+                    <svg class="shrink-0 [:where(&amp;)]:size-5" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.162V6a2 2 0 0 0-2-2H3Z"/>
+  <path d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z"/>
+</svg>
+
+                        </div>
+            
+            <input
+                type="email"
+                
+                class="w-full border rounded-lg block disabled:shadow-none dark:shadow-none appearance-none text-base sm:text-sm py-2 h-10 leading-[1.375rem] ps-10 pe-3 bg-white dark:bg-white/10 dark:disabled:bg-white/[7%] text-zinc-700 disabled:text-zinc-500 placeholder-zinc-400 disabled:placeholder-zinc-400/70 dark:text-zinc-300 dark:disabled:text-zinc-400 dark:placeholder-zinc-400 dark:disabled:placeholder-zinc-500 shadow-xs border-zinc-200 border-b-zinc-300/80 disabled:border-b-zinc-200 dark:border-white/10 dark:disabled:border-white/5 data-invalid:shadow-none data-invalid:border-red-500 dark:data-invalid:border-red-500 disabled:data-invalid:border-red-500 dark:disabled:data-invalid:border-red-500" label="Email address" required="required" autofocus="autofocus" autocomplete="email" placeholder="email@example.com"
+                 name="email"                                                                                                 data-flux-control
+                data-flux-group-target
+                                            >
+
+                    </div>
+
+        
+                <div role="alert" aria-live="polite" aria-atomic="true" class="mt-3 text-sm font-medium text-red-500 dark:text-red-400 hidden" data-flux-error>
+    </div>
+</ui-field>
+
+            <button
+    type="submit"
+    class="group inline-flex h-11 w-full items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98] bg-white text-primary-700 shadow-lg shadow-black/20 hover:bg-white/90 hover:shadow-xl focus-visible:outline-white mt-1" data-test="email-password-reset-link-button"
+>
+    Email password reset link
+    <svg class="shrink-0 [:where(&amp;)]:size-4 transition-transform duration-300 group-hover:translate-x-1" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path fill-rule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clip-rule="evenodd"/>
+</svg>
+
+        </button>
+        </form>
+
+        <a href="../login/index.html" class="group inline-flex items-center justify-center gap-1.5 text-sm font-medium text-white/70 transition hover:text-white" wire:navigate>
+            <svg class="shrink-0 [:where(&amp;)]:size-4 transition-transform group-hover:-translate-x-0.5" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path fill-rule="evenodd" d="M14 8a.75.75 0 0 1-.75.75H4.56l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 1.06L4.56 7.25h8.69A.75.75 0 0 1 14 8Z" clip-rule="evenodd"/>
+</svg>
+
+                    Back to log in
+        </a>
+    </div>
+                </div>
+
+                <a href="http://127.0.0.1:8000" class="mt-8 text-sm font-medium text-white/60 transition hover:text-white [@media(max-height:760px)]:hidden" wire:navigate>
+                    My Company
+                </a>
+            </div>
+        </div>
+
+        <div x-persist="toast">
+            <ui-toast-group x-data x-on:toast-show.document="$el.showToast($event.detail)" popover="manual" position="bottom end"  wire:ignore>
+    <ui-toast x-data x-on:toast-show.document="! $el.closest('ui-toast-group') && $el.showToast($event.detail)" popover="manual" position="bottom end" wire:ignore>
+    <template>
+        <div class="max-w-sm in-[ui-toast-group]:max-w-auto in-[ui-toast-group]:w-xs sm:in-[ui-toast-group]:w-sm" data-variant="" data-flux-toast-dialog>
+            <div class="p-2 flex rounded-xl shadow-lg bg-white border border-zinc-200 border-b-zinc-300/80 dark:bg-zinc-700 dark:border-zinc-600">
+                <div class="flex-1 flex items-start gap-4 overflow-hidden">
+                    <div class="flex-1 py-1.5 ps-2.5 flex gap-2">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="hidden [[data-flux-toast-dialog][data-variant=success]_&]:block shrink-0 mt-0.5 size-4 text-lime-600 dark:text-lime-400">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm3.844-8.791a.75.75 0 0 0-1.188-.918l-3.7 4.79-1.649-1.833a.75.75 0 1 0-1.114 1.004l2.25 2.5a.75.75 0 0 0 1.15-.043l4.25-5.5Z" clip-rule="evenodd" />
+                        </svg>
+
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="hidden [[data-flux-toast-dialog][data-variant=warning]_&]:block shrink-0 mt-0.5 size-4 text-amber-500 dark:text-amber-400">
+                            <path fill-rule="evenodd" d="M6.701 2.25c.577-1 2.02-1 2.598 0l5.196 9a1.5 1.5 0 0 1-1.299 2.25H2.804a1.5 1.5 0 0 1-1.3-2.25l5.197-9ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 1 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                        </svg>
+
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="hidden [[data-flux-toast-dialog][data-variant=info]_&]:block shrink-0 mt-0.5 size-4 text-cyan-500 dark:text-cyan-400">
+                            <path fill-rule="evenodd" d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0ZM9 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6.75 8a.75.75 0 0 0 0 1.5h.75v1.75a.75.75 0 0 0 1.5 0v-2.5A.75.75 0 0 0 8.25 8h-1.5Z" clip-rule="evenodd" />
+                        </svg>
+                        
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="hidden [[data-flux-toast-dialog][data-variant=danger]_&]:block shrink-0 mt-0.5 size-4 text-rose-500 dark:text-rose-400">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                        </svg>
+
+                        <div>
+                            
+                            <div class="font-medium text-sm text-zinc-800 dark:text-white [&:not(:empty)+div]:font-normal [&:not(:empty)+div]:text-zinc-500 [&:not(:empty)+div]:dark:text-zinc-300 [&:not(:empty)]:pb-2"><slot name="heading"></slot></div>
+
+                            
+                            <div class="font-medium text-sm text-zinc-800 dark:text-white"><slot name="text"></slot></div>
+                        </div>
+                    </div>
+
+                    
+                    <ui-close class="flex items-center">
+                        <button type="button" class="inline-flex items-center font-medium justify-center gap-2 truncate disabled:opacity-50 dark:disabled:opacity-75 disabled:cursor-default h-8 text-sm rounded-md w-8 bg-transparent hover:bg-zinc-800/5 dark:hover:bg-white/15 text-zinc-400 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-white" as="button">
+                            <div>
+                                <svg class="[:where(&)]:size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"></path>
+                                </svg>
+                            </div>
+                        </button>
+                    </ui-close>
+                </div>
+            </div>
+        </div>
+    </template>
+</ui-toast>
+</ui-toast-group>
+        </div>
+
+        <script defer src="../../demo/wire.js"></script><script defer src="../../demo/vendor/alpine-persist.min.js"></script><script defer src="../../demo/vendor/alpine-focus.min.js"></script><script defer src="../../demo/vendor/alpine-collapse.min.js"></script><script defer src="../../demo/vendor/alpine-anchor.min.js"></script><script src="../../flux/flux.js"></script><script defer src="../../demo/vendor/alpine.min.js"></script>
+    <!-- Livewire Scripts -->
+
+<script defer src="../../demo/data.js"></script><script defer src="../../demo/store.js"></script><script defer src="../../demo/receipt.js"></script><script defer src="../../demo/search.js"></script><script defer src="../../demo/lists.js"></script><script defer src="../../demo/pos.js"></script><script defer src="../../demo/forms.js"></script><script defer src="../../demo/demo.js" data-role="guest" data-path="/forgot-password" data-root="../../"></script></body>
+</html>

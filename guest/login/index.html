@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+    <head>
+        <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>
+    Log in - Inventory
+</title>
+
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+<style>
+:root {
+  --font-instrument-sans: "Instrument Sans", "Instrument Sans fallback";
+}
+
+.font-instrument-sans {
+  font-family: var(--font-instrument-sans);
+}
+</style>
+<link rel="stylesheet" href="../../build/assets/app-C-R5BbaP.css"><link rel="stylesheet" href="../../build/assets/fonts-DkuEHybc.css"><script type="module" src="../../build/assets/app-VRWLt7R7.js"></script>
+
+<style>:root{--color-primary-50: oklch(97.1% 0.023 276.966);--color-primary-100: oklch(93.6% 0.046 276.966);--color-primary-200: oklch(88.5% 0.0874 276.966);--color-primary-300: oklch(80.9% 0.1426 276.966);--color-primary-400: oklch(70.7% 0.2024 276.966);--color-primary-500: oklch(63.7% 0.2301 276.966);--color-primary-600: oklch(57.7% 0.2301 276.966);--color-primary-700: oklch(50.5% 0.2116 276.966);--color-primary-800: oklch(44.4% 0.184 276.966);--color-primary-900: oklch(39.6% 0.1564 276.966);--color-primary-950: oklch(28.4% 0.1104 276.966);--color-primary: var(--color-primary-600);--color-secondary-50: oklch(97.1% 0.0104 184.704);--color-secondary-100: oklch(93.6% 0.0208 184.704);--color-secondary-200: oklch(88.5% 0.0395 184.704);--color-secondary-300: oklch(80.9% 0.0644 184.704);--color-secondary-400: oklch(70.7% 0.0914 184.704);--color-secondary-500: oklch(63.7% 0.1038 184.704);--color-secondary-600: oklch(57.7% 0.1038 184.704);--color-secondary-700: oklch(50.5% 0.0955 184.704);--color-secondary-800: oklch(44.4% 0.0831 184.704);--color-secondary-900: oklch(39.6% 0.0706 184.704);--color-secondary-950: oklch(28.4% 0.0498 184.704);--color-secondary: var(--color-secondary-600);--color-tertiary-50: oklch(97.1% 0.0157 58.318);--color-tertiary-100: oklch(93.6% 0.0315 58.318);--color-tertiary-200: oklch(88.5% 0.0598 58.318);--color-tertiary-300: oklch(80.9% 0.0976 58.318);--color-tertiary-400: oklch(70.7% 0.1385 58.318);--color-tertiary-500: oklch(63.7% 0.1574 58.318);--color-tertiary-600: oklch(57.7% 0.1574 58.318);--color-tertiary-700: oklch(50.5% 0.1448 58.318);--color-tertiary-800: oklch(44.4% 0.1259 58.318);--color-tertiary-900: oklch(39.6% 0.107 58.318);--color-tertiary-950: oklch(28.4% 0.0756 58.318);--color-tertiary: var(--color-tertiary-600);}</style>
+
+<style>
+    :root.dark {
+        color-scheme: dark;
+    }
+</style>
+<script>
+    window.Flux = {
+        applyAppearance (appearance) {
+            let applyDark = () => document.documentElement.classList.add('dark')
+            let applyLight = () => document.documentElement.classList.remove('dark')
+
+            if (appearance === 'system') {
+                let media = window.matchMedia('(prefers-color-scheme: dark)')
+
+                window.localStorage.removeItem('flux.appearance')
+
+                media.matches ? applyDark() : applyLight()
+            } else if (appearance === 'dark') {
+                window.localStorage.setItem('flux.appearance', 'dark')
+
+                applyDark()
+            } else if (appearance === 'light') {
+                window.localStorage.setItem('flux.appearance', 'light')
+
+                applyLight()
+            }
+        }
+    }
+
+    window.Flux.applyAppearance(window.localStorage.getItem('flux.appearance') || 'system')
+</script>
+
+
+<script>
+    (() => {
+        const SEARCH = 'input[data-form-type="other"]';
+
+        const lock = (el) => {
+            if (el !== document.activeElement && !el.readOnly) el.readOnly = true;
+        };
+        const lockWithin = (root) => root.querySelectorAll?.(SEARCH).forEach(lock);
+
+        document.addEventListener('focusin', (e) => {
+            if (e.target.matches?.(SEARCH)) setTimeout(() => { e.target.readOnly = false; }, 0);
+        });
+        document.addEventListener('focusout', (e) => {
+            if (e.target.matches?.(SEARCH)) e.target.readOnly = true;
+        });
+
+        const start = () => {
+            lockWithin(document);
+
+            new MutationObserver((records) => {
+                for (const record of records) {
+                    if (record.type === 'attributes') {
+                        if (record.target.matches?.(SEARCH)) lock(record.target);
+                        continue;
+                    }
+                    for (const node of record.addedNodes) {
+                        if (node.nodeType !== 1) continue;
+                        node.matches(SEARCH) ? lock(node) : lockWithin(node);
+                    }
+                }
+            }).observe(document.body, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['readonly'],
+            });
+        };
+
+        document.readyState === 'loading'
+            ? document.addEventListener('DOMContentLoaded', start)
+            : start();
+    })();
+</script>
+    
+<!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+<link rel="stylesheet" href="../../demo/demo.css"></head>
+    <body class="min-h-screen antialiased bg-zinc-950">
+        <div class="relative flex min-h-svh flex-col overflow-hidden lg:h-svh lg:flex-row">
+            <div class="auth-gradient absolute inset-0" aria-hidden="true"></div>
+            <div class="auth-blob auth-blob-1" aria-hidden="true"></div>
+            <div class="auth-blob auth-blob-2" aria-hidden="true"></div>
+            <div class="auth-blob auth-blob-3" aria-hidden="true"></div>
+            <div class="auth-grid absolute inset-0" aria-hidden="true"></div>
+
+            
+            <aside class="relative z-10 flex flex-col justify-between gap-8 p-6 text-white sm:p-10 lg:min-h-0 lg:flex-1 lg:overflow-hidden xl:px-16 [@media(min-height:860px)]:lg:py-16">
+                <a href="http://127.0.0.1:8000" class="flex items-center gap-3" wire:navigate>
+                    <span class="flex size-11 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25 backdrop-blur-md">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 42" class="size-5 fill-current text-white">
+    <path 
+        fill="currentColor" 
+        fill-rule="evenodd" 
+        clip-rule="evenodd"
+        d="M17.2 5.633 8.6.855 0 5.633v26.51l16.2 9 16.2-9v-8.442l7.6-4.223V9.856l-8.6-4.777-8.6 4.777V18.3l-5.6 3.111V5.633ZM38 18.301l-5.6 3.11v-6.157l5.6-3.11V18.3Zm-1.06-7.856-5.54 3.078-5.54-3.079 5.54-3.078 5.54 3.079ZM24.8 18.3v-6.157l5.6 3.111v6.158L24.8 18.3Zm-1 1.732 5.54 3.078-13.14 7.302-5.54-3.078 13.14-7.3v-.002Zm-16.2 7.89 7.6 4.222V38.3L2 30.966V7.92l5.6 3.111v16.892ZM8.6 9.3 3.06 6.222 8.6 3.143l5.54 3.08L8.6 9.3Zm21.8 15.51-13.2 7.334V38.3l13.2-7.334v-6.156ZM9.6 11.034l5.6-3.11v14.6l-5.6 3.11v-14.6Z"
+    />
+</svg>
+                                            </span>
+                    <span class="hidden text-lg font-semibold tracking-tight lg:inline">My Company</span>
+                </a>
+
+                <div class="relative hidden lg:block">
+                    <div class="max-w-md">
+                        <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium ring-1 ring-white/20 backdrop-blur-md">
+                            <span class="relative flex size-2">
+                                <span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-300 opacity-75"></span>
+                                <span class="relative inline-flex size-2 rounded-full bg-emerald-300"></span>
+                            </span>
+                            Inventory, sales &amp; purchases in one place
+                        </span>
+
+                        <h1 class="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight xl:text-5xl [@media(min-height:860px)]:xl:text-6xl">
+                            Every item,<br>
+                            <span class="auth-shimmer">always in sight.</span>
+                        </h1>
+
+                        <p class="mt-5 text-lg text-white/75">
+                            Track stock across locations, ring up sales at the counter and keep every invoice and payment reconciled — in real time.
+                        </p>
+                    </div>
+
+                    
+                    <div class="absolute right-0 top-1/2 hidden size-56 -translate-y-1/2 xl:block" aria-hidden="true">
+                        <div class="absolute inset-0 rounded-full border border-dashed border-white/30"></div>
+
+                        <div class="absolute inset-10 flex flex-col items-center justify-center rounded-full bg-white/10 backdrop-blur-md">
+                            <div class="auth-ring absolute inset-0 rounded-full"></div>
+                            <span class="text-3xl font-semibold">82%</span>
+                            <span class="text-xs text-white/70">in stock</span>
+                        </div>
+
+                        <div class="auth-orbit absolute inset-0">
+                                                            <div class="absolute left-1/2 top-0 -ml-6 -mt-6">
+                                    <span class="auth-bubble flex size-12 items-center justify-center rounded-full bg-white/20 shadow-lg shadow-black/10 ring-1 ring-white/30 backdrop-blur-md">
+                                        <svg class="shrink-0 [:where(&amp;)]:size-5 size-5 text-white" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path d="M10.362 1.093a.75.75 0 0 0-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925ZM18 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0 0 18 14.25V6.443ZM9.25 18.693v-8.25l-7.25-4v7.807a.75.75 0 0 0 .388.657l6.862 3.786Z"/>
+</svg>
+
+                                            </span>
+                                </div>
+                                                            <div class="absolute left-full top-1/2 -ml-6 -mt-6">
+                                    <span class="auth-bubble flex size-12 items-center justify-center rounded-full bg-white/20 shadow-lg shadow-black/10 ring-1 ring-white/30 backdrop-blur-md">
+                                        <svg class="shrink-0 [:where(&amp;)]:size-5 size-5 text-white" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path d="M1 1.75A.75.75 0 0 1 1.75 1h1.628a1.75 1.75 0 0 1 1.734 1.51L5.18 3a65.25 65.25 0 0 1 13.36 1.412.75.75 0 0 1 .58.875 48.645 48.645 0 0 1-1.618 6.2.75.75 0 0 1-.712.513H6a2.503 2.503 0 0 0-2.292 1.5H17.25a.75.75 0 0 1 0 1.5H2.76a.75.75 0 0 1-.748-.807 4.002 4.002 0 0 1 2.716-3.486L3.626 2.716a.25.25 0 0 0-.248-.216H1.75A.75.75 0 0 1 1 1.75ZM6 17.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM15.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
+</svg>
+
+                                            </span>
+                                </div>
+                                                            <div class="absolute left-1/2 top-full -ml-6 -mt-6">
+                                    <span class="auth-bubble flex size-12 items-center justify-center rounded-full bg-white/20 shadow-lg shadow-black/10 ring-1 ring-white/30 backdrop-blur-md">
+                                        <svg class="shrink-0 [:where(&amp;)]:size-5 size-5 text-white" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path d="M15.5 2A1.5 1.5 0 0 0 14 3.5v13a1.5 1.5 0 0 0 1.5 1.5h1a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 16.5 2h-1ZM9.5 6A1.5 1.5 0 0 0 8 7.5v9A1.5 1.5 0 0 0 9.5 18h1a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 10.5 6h-1ZM3.5 10A1.5 1.5 0 0 0 2 11.5v5A1.5 1.5 0 0 0 3.5 18h1A1.5 1.5 0 0 0 6 16.5v-5A1.5 1.5 0 0 0 4.5 10h-1Z"/>
+</svg>
+
+                                            </span>
+                                </div>
+                                                            <div class="absolute left-0 top-1/2 -ml-6 -mt-6">
+                                    <span class="auth-bubble flex size-12 items-center justify-center rounded-full bg-white/20 shadow-lg shadow-black/10 ring-1 ring-white/30 backdrop-blur-md">
+                                        <svg class="shrink-0 [:where(&amp;)]:size-5 size-5 text-white" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path d="M6.5 3c-1.051 0-2.093.04-3.125.117A1.49 1.49 0 0 0 2 4.607V10.5h9V4.606c0-.771-.59-1.43-1.375-1.489A41.568 41.568 0 0 0 6.5 3ZM2 12v2.5A1.5 1.5 0 0 0 3.5 16h.041a3 3 0 0 1 5.918 0h.791a.75.75 0 0 0 .75-.75V12H2Z"/>
+  <path d="M6.5 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM13.25 5a.75.75 0 0 0-.75.75v8.514a3.001 3.001 0 0 1 4.893 1.44c.37-.275.61-.719.595-1.227a24.905 24.905 0 0 0-1.784-8.549A1.486 1.486 0 0 0 14.823 5H13.25ZM14.5 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
+</svg>
+
+                                            </span>
+                                </div>
+                                                    </div>
+                    </div>
+                </div>
+
+                <p class="hidden text-sm text-white/55 lg:block">&copy; 2026 My Company</p>
+            </aside>
+
+            
+            <main class="relative z-10 flex flex-1 items-center justify-center rounded-t-[2.5rem] bg-white px-6 py-10 sm:px-12 lg:w-[480px] lg:flex-none lg:rounded-none lg:py-6 short:py-4 dark:bg-zinc-900">
+                <svg class="absolute inset-y-0 right-full hidden h-full w-24 fill-white lg:block dark:fill-zinc-900" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M100 0 H70 C 10 20, 100 45, 45 62 C 5 75, 40 92, 62 100 H100 Z" />
+                </svg>
+
+                <div class="auth-rise auth-pill relative w-full max-w-sm">
+                    <div class="flex flex-col gap-6 short:gap-4">
+        <div>
+            <h2 class="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-white">My Company</h2>
+            <p class="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">Sign in to your account</p>
+        </div>
+
+        <!-- Session Status -->
+        
+        <form method="POST" action="#" class="flex flex-col gap-4">
+            <input type="hidden" name="_token" value="sSNDXt7cErJ9TXS7vbVFzskHITSzPcC0eaKoCiV3" autocomplete="off">
+            <!-- Email Address -->
+            <ui-field class="min-w-0 [&amp;:not(:has([data-flux-field])):has([data-flux-control][disabled])&gt;[data-flux-label]]:opacity-50 [&amp;:has(&gt;[data-flux-radio-group][disabled])&gt;[data-flux-label]]:opacity-50 [&amp;:has(&gt;[data-flux-checkbox-group][disabled])&gt;[data-flux-label]]:opacity-50 block *:data-flux-label:mb-3 [&amp;&gt;[data-flux-label]:has(+[data-flux-description])]:mb-2 [&amp;&gt;[data-flux-label]+[data-flux-description]]:mt-0 [&amp;&gt;[data-flux-label]+[data-flux-description]]:mb-3 [&amp;&gt;*:not([data-flux-label])+[data-flux-description]]:mt-3" data-flux-field>
+    <ui-label class="inline-flex items-center text-sm font-medium  [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white [&amp;:has([data-flux-label-trailing])]:flex" data-flux-label>
+    Email address
+
+    
+    
+    </ui-label>
+        
+        
+        <div class="w-full relative block group/input" data-flux-input>
+                            <div class="pointer-events-none absolute top-0 bottom-0 border-s border-transparent flex items-center justify-center text-xs text-zinc-400/75 dark:text-white/60 ps-3 start-0">
+                    <svg class="shrink-0 [:where(&amp;)]:size-5" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.162V6a2 2 0 0 0-2-2H3Z"/>
+  <path d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z"/>
+</svg>
+
+                        </div>
+            
+            <input
+                type="email"
+                
+                class="w-full border rounded-lg block disabled:shadow-none dark:shadow-none appearance-none text-base sm:text-sm py-2 h-10 leading-[1.375rem] ps-10 pe-3 bg-white dark:bg-white/10 dark:disabled:bg-white/[7%] text-zinc-700 disabled:text-zinc-500 placeholder-zinc-400 disabled:placeholder-zinc-400/70 dark:text-zinc-300 dark:disabled:text-zinc-400 dark:placeholder-zinc-400 dark:disabled:placeholder-zinc-500 shadow-xs border-zinc-200 border-b-zinc-300/80 disabled:border-b-zinc-200 dark:border-white/10 dark:disabled:border-white/5 data-invalid:shadow-none data-invalid:border-red-500 dark:data-invalid:border-red-500 disabled:data-invalid:border-red-500 dark:disabled:data-invalid:border-red-500" label="Email address" required="required" autofocus="autofocus" autocomplete="email" placeholder="email@example.com"
+                 name="email"                                                                                                 data-flux-control
+                data-flux-group-target
+                                            >
+
+                    </div>
+
+        
+                <div role="alert" aria-live="polite" aria-atomic="true" class="mt-3 text-sm font-medium text-red-500 dark:text-red-400 hidden" data-flux-error>
+    </div>
+</ui-field>
+
+            <!-- Password -->
+            <div class="relative">
+                <ui-field class="min-w-0 [&amp;:not(:has([data-flux-field])):has([data-flux-control][disabled])&gt;[data-flux-label]]:opacity-50 [&amp;:has(&gt;[data-flux-radio-group][disabled])&gt;[data-flux-label]]:opacity-50 [&amp;:has(&gt;[data-flux-checkbox-group][disabled])&gt;[data-flux-label]]:opacity-50 block *:data-flux-label:mb-3 [&amp;&gt;[data-flux-label]:has(+[data-flux-description])]:mb-2 [&amp;&gt;[data-flux-label]+[data-flux-description]]:mt-0 [&amp;&gt;[data-flux-label]+[data-flux-description]]:mb-3 [&amp;&gt;*:not([data-flux-label])+[data-flux-description]]:mt-3" data-flux-field>
+    <ui-label class="inline-flex items-center text-sm font-medium  [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white [&amp;:has([data-flux-label-trailing])]:flex" data-flux-label>
+    Password
+
+    
+    
+    </ui-label>
+        
+        
+        <div class="w-full relative block group/input" data-flux-input>
+                            <div class="pointer-events-none absolute top-0 bottom-0 border-s border-transparent flex items-center justify-center text-xs text-zinc-400/75 dark:text-white/60 ps-3 start-0">
+                    <svg class="shrink-0 [:where(&amp;)]:size-5" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clip-rule="evenodd"/>
+</svg>
+
+                        </div>
+            
+            <input
+                type="password"
+                
+                class="w-full border rounded-lg block disabled:shadow-none dark:shadow-none appearance-none text-base sm:text-sm py-2 h-10 leading-[1.375rem] ps-10 pe-10 bg-white dark:bg-white/10 dark:disabled:bg-white/[7%] text-zinc-700 disabled:text-zinc-500 placeholder-zinc-400 disabled:placeholder-zinc-400/70 dark:text-zinc-300 dark:disabled:text-zinc-400 dark:placeholder-zinc-400 dark:disabled:placeholder-zinc-500 shadow-xs border-zinc-200 border-b-zinc-300/80 disabled:border-b-zinc-200 dark:border-white/10 dark:disabled:border-white/5 data-invalid:shadow-none data-invalid:border-red-500 dark:data-invalid:border-red-500 disabled:data-invalid:border-red-500 dark:disabled:data-invalid:border-red-500" label="Password" required="required" autocomplete="current-password" placeholder="Password"
+                 name="password"                                                                                                 data-flux-control
+                data-flux-group-target
+                                            >
+
+                            <div class="absolute top-0 bottom-0 flex items-center gap-x-1.5 pe-2 border-e border-transparent end-0 text-xs text-zinc-400">
+                    
+                    
+                    
+                    
+                    
+                    
+                                            <button type="button" class="relative items-center font-medium justify-center gap-2 whitespace-nowrap disabled:opacity-75 dark:disabled:opacity-75 disabled:cursor-default disabled:pointer-events-none justify-center h-8 text-sm rounded-md w-8 inline-flex -ms-1.5 -me-1.5 bg-transparent hover:bg-zinc-800/5 dark:hover:bg-white/15 text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-white      -me-1" data-flux-button="data-flux-button" x-data="fluxInputViewable" x-on:click="toggle()" x-bind:data-viewable-open="open" aria-label="Toggle password visibility">
+        <svg class="shrink-0 [:where(&amp;)]:size-5 hidden [[data-viewable-open]>&]:block" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path fill-rule="evenodd" d="M3.28 2.22a.75.75 0 0 0-1.06 1.06l14.5 14.5a.75.75 0 1 0 1.06-1.06l-1.745-1.745a10.029 10.029 0 0 0 3.3-4.38 1.651 1.651 0 0 0 0-1.185A10.004 10.004 0 0 0 9.999 3a9.956 9.956 0 0 0-4.744 1.194L3.28 2.22ZM7.752 6.69l1.092 1.092a2.5 2.5 0 0 1 3.374 3.373l1.091 1.092a4 4 0 0 0-5.557-5.557Z" clip-rule="evenodd"/>
+  <path d="m10.748 13.93 2.523 2.523a9.987 9.987 0 0 1-3.27.547c-4.258 0-7.894-2.66-9.337-6.41a1.651 1.651 0 0 1 0-1.186A10.007 10.007 0 0 1 2.839 6.02L6.07 9.252a4 4 0 0 0 4.678 4.678Z"/>
+</svg>
+
+            <svg class="shrink-0 [:where(&amp;)]:size-5 block [[data-viewable-open]>&]:hidden" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+  <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 0 1 0-1.186A10.004 10.004 0 0 1 10 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0 1 10 17c-4.257 0-7.893-2.66-9.336-6.41ZM14 10a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" clip-rule="evenodd"/>
+</svg>
+    </button>
+                    
+                                    </div>
+                    </div>
+
+        
+                <div role="alert" aria-live="polite" aria-atomic="true" class="mt-3 text-sm font-medium text-red-500 dark:text-red-400 hidden" data-flux-error>
+    </div>
+</ui-field>
+
+                                    <a class="inline font-medium underline-offset-[6px] hover:decoration-current underline [[data-color]&gt;&amp;]:text-inherit [[data-color]&gt;&amp;]:decoration-current/20 dark:[[data-color]&gt;&amp;]:decoration-current/50 [[data-color]&gt;&amp;]:hover:decoration-current text-[var(--color-accent-content)] decoration-[color-mix(in_oklab,var(--color-accent-content),transparent_80%)] absolute end-0 top-0 text-sm" href="../forgot-password/index.html" wire:navigate="" data-flux-link >Forgot password?</a>                            </div>
+
+            <!-- Remember Me -->
+            <ui-field class="min-w-0 [&amp;:not(:has([data-flux-field])):has([data-flux-control][disabled])&gt;[data-flux-label]]:opacity-50 [&amp;:has(&gt;[data-flux-radio-group][disabled])&gt;[data-flux-label]]:opacity-50 [&amp;:has(&gt;[data-flux-checkbox-group][disabled])&gt;[data-flux-label]]:opacity-50 grid gap-x-3 gap-y-1.5 has-[[data-flux-label]~[data-flux-control]]:grid-cols-[1fr_auto] has-[[data-flux-control]~[data-flux-label]]:grid-cols-[auto_1fr] [&amp;&gt;[data-flux-control]~[data-flux-description]]:row-start-2 [&amp;&gt;[data-flux-control]~[data-flux-description]]:col-start-2 [&amp;&gt;[data-flux-control]~[data-flux-error]]:col-span-2 [&amp;&gt;[data-flux-control]~[data-flux-error]]:mt-1 [&amp;&gt;[data-flux-label]~[data-flux-control]]:row-start-1 [&amp;&gt;[data-flux-label]~[data-flux-control]]:col-start-2" data-flux-field>
+    <ui-checkbox class="flex size-[1.125rem] rounded-[.3rem] mt-px outline-offset-2" label="Remember me"  name="remember"  data-flux-control data-flux-checkbox>
+        <div class="shrink-0 size-[1.125rem] rounded-[.3rem] flex justify-center items-center text-sm text-zinc-700 dark:text-zinc-800 shadow-xs [ui-checkbox[disabled]_&amp;]:opacity-75 [ui-checkbox[data-checked][disabled]_&amp;]:opacity-50 [ui-checkbox[disabled]_&amp;]:shadow-none [ui-checkbox[data-checked]_&amp;]:shadow-none [ui-checkbox[data-indeterminate]_&amp;]:shadow-none [ui-checkbox[data-checked]:not([data-indeterminate])_&amp;&gt;svg:first-child]:block [ui-checkbox[data-indeterminate]_&amp;&gt;svg:last-child]:block border border-zinc-300 dark:border-white/10 [ui-checkbox[disabled]_&amp;]:border-zinc-200 dark:[ui-checkbox[disabled]_&amp;]:border-white/5 [ui-checkbox[data-checked]_&amp;]:border-transparent [ui-checkbox[data-indeterminate]_&amp;]:border-transparent [ui-checkbox[disabled][data-checked]_&amp;]:border-transparent [ui-checkbox[disabled][data-indeterminate]_&amp;]:border-transparent [print-color-adjust:exact] bg-white dark:bg-white/10 [ui-checkbox[data-checked]_&amp;]:bg-[var(--color-accent)] hover:[ui-checkbox[data-checked]_&amp;]:bg-(--color-accent) focus:[ui-checkbox[data-checked]_&amp;]:bg-(--color-accent) [ui-checkbox[data-indeterminate]_&amp;]:bg-[var(--color-accent)] hover:[ui-checkbox[data-indeterminate]_&amp;]:bg-(--color-accent) focus:[ui-checkbox[data-indeterminate]_&amp;]:bg-(--color-accent)" data-flux-checkbox-indicator>
+    <svg class="shrink-0 [:where(&amp;)]:size-4 hidden text-[var(--color-accent-foreground)]" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path fill-rule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd"/>
+</svg>
+
+            <svg class="shrink-0 [:where(&amp;)]:size-4 hidden text-[var(--color-accent-foreground)]" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path d="M3.75 7.25a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Z"/>
+</svg>
+
+        </div>
+    </ui-checkbox>
+
+                    <ui-label class="inline-flex items-center text-sm font-medium  [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white [&amp;:has([data-flux-label-trailing])]:flex" data-flux-label>
+    Remember me
+
+    
+    
+    </ui-label>
+        
+        
+                    <div role="alert" aria-live="polite" aria-atomic="true" class="mt-3 text-sm font-medium text-red-500 dark:text-red-400 hidden" data-flux-error>
+    </div>
+</ui-field>
+
+
+            <button
+    type="submit"
+    class="group inline-flex h-11 w-full items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98] bg-linear-to-r from-primary-600 via-primary-500 to-secondary-500 bg-size-[200%_100%] bg-left text-white shadow-lg shadow-primary-500/30 hover:bg-right hover:shadow-xl hover:shadow-primary-500/40 focus-visible:outline-primary-500 mt-1" data-test="login-button"
+>
+    Log in
+    <svg class="shrink-0 [:where(&amp;)]:size-4 transition-transform duration-300 group-hover:translate-x-1" data-flux-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+  <path fill-rule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clip-rule="evenodd"/>
+</svg>
+
+        </button>
+        </form>
+
+                    <div class="space-x-1 text-center text-sm text-zinc-600 rtl:space-x-reverse dark:text-zinc-400">
+                <span>Don&#039;t have an account?</span>
+                <a class="inline font-medium underline-offset-[6px] hover:decoration-current underline [[data-color]&gt;&amp;]:text-inherit [[data-color]&gt;&amp;]:decoration-current/20 dark:[[data-color]&gt;&amp;]:decoration-current/50 [[data-color]&gt;&amp;]:hover:decoration-current text-[var(--color-accent-content)] decoration-[color-mix(in_oklab,var(--color-accent-content),transparent_80%)]" href="../register/index.html" wire:navigate="" data-flux-link >Sign up</a>            </div>
+            </div>
+                </div>
+            </main>
+        </div>
+
+        <div x-persist="toast">
+            <ui-toast-group x-data x-on:toast-show.document="$el.showToast($event.detail)" popover="manual" position="bottom end"  wire:ignore>
+    <ui-toast x-data x-on:toast-show.document="! $el.closest('ui-toast-group') && $el.showToast($event.detail)" popover="manual" position="bottom end" wire:ignore>
+    <template>
+        <div class="max-w-sm in-[ui-toast-group]:max-w-auto in-[ui-toast-group]:w-xs sm:in-[ui-toast-group]:w-sm" data-variant="" data-flux-toast-dialog>
+            <div class="p-2 flex rounded-xl shadow-lg bg-white border border-zinc-200 border-b-zinc-300/80 dark:bg-zinc-700 dark:border-zinc-600">
+                <div class="flex-1 flex items-start gap-4 overflow-hidden">
+                    <div class="flex-1 py-1.5 ps-2.5 flex gap-2">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="hidden [[data-flux-toast-dialog][data-variant=success]_&]:block shrink-0 mt-0.5 size-4 text-lime-600 dark:text-lime-400">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm3.844-8.791a.75.75 0 0 0-1.188-.918l-3.7 4.79-1.649-1.833a.75.75 0 1 0-1.114 1.004l2.25 2.5a.75.75 0 0 0 1.15-.043l4.25-5.5Z" clip-rule="evenodd" />
+                        </svg>
+
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="hidden [[data-flux-toast-dialog][data-variant=warning]_&]:block shrink-0 mt-0.5 size-4 text-amber-500 dark:text-amber-400">
+                            <path fill-rule="evenodd" d="M6.701 2.25c.577-1 2.02-1 2.598 0l5.196 9a1.5 1.5 0 0 1-1.299 2.25H2.804a1.5 1.5 0 0 1-1.3-2.25l5.197-9ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 1 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                        </svg>
+
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="hidden [[data-flux-toast-dialog][data-variant=info]_&]:block shrink-0 mt-0.5 size-4 text-cyan-500 dark:text-cyan-400">
+                            <path fill-rule="evenodd" d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0ZM9 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6.75 8a.75.75 0 0 0 0 1.5h.75v1.75a.75.75 0 0 0 1.5 0v-2.5A.75.75 0 0 0 8.25 8h-1.5Z" clip-rule="evenodd" />
+                        </svg>
+                        
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="hidden [[data-flux-toast-dialog][data-variant=danger]_&]:block shrink-0 mt-0.5 size-4 text-rose-500 dark:text-rose-400">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                        </svg>
+
+                        <div>
+                            
+                            <div class="font-medium text-sm text-zinc-800 dark:text-white [&:not(:empty)+div]:font-normal [&:not(:empty)+div]:text-zinc-500 [&:not(:empty)+div]:dark:text-zinc-300 [&:not(:empty)]:pb-2"><slot name="heading"></slot></div>
+
+                            
+                            <div class="font-medium text-sm text-zinc-800 dark:text-white"><slot name="text"></slot></div>
+                        </div>
+                    </div>
+
+                    
+                    <ui-close class="flex items-center">
+                        <button type="button" class="inline-flex items-center font-medium justify-center gap-2 truncate disabled:opacity-50 dark:disabled:opacity-75 disabled:cursor-default h-8 text-sm rounded-md w-8 bg-transparent hover:bg-zinc-800/5 dark:hover:bg-white/15 text-zinc-400 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-white" as="button">
+                            <div>
+                                <svg class="[:where(&)]:size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"></path>
+                                </svg>
+                            </div>
+                        </button>
+                    </ui-close>
+                </div>
+            </div>
+        </div>
+    </template>
+</ui-toast>
+</ui-toast-group>
+        </div>
+
+        <script defer src="../../demo/wire.js"></script><script defer src="../../demo/vendor/alpine-persist.min.js"></script><script defer src="../../demo/vendor/alpine-focus.min.js"></script><script defer src="../../demo/vendor/alpine-collapse.min.js"></script><script defer src="../../demo/vendor/alpine-anchor.min.js"></script><script src="../../flux/flux.js"></script><script defer src="../../demo/vendor/alpine.min.js"></script>
+    <!-- Livewire Scripts -->
+
+<script defer src="../../demo/data.js"></script><script defer src="../../demo/store.js"></script><script defer src="../../demo/receipt.js"></script><script defer src="../../demo/search.js"></script><script defer src="../../demo/lists.js"></script><script defer src="../../demo/pos.js"></script><script defer src="../../demo/forms.js"></script><script defer src="../../demo/demo.js" data-role="guest" data-path="/login" data-root="../../"></script></body>
+</html>
