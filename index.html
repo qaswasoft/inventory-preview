@@ -6,18 +6,32 @@
 <title>Inventory — interactive demo</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
-:root{--bg:#fafafa;--card:#fff;--ink:#18181b;--mut:#71717a;--line:#e4e4e7;--p:#5b5fe0;--pb:#eef0ff}
-@media (prefers-color-scheme:dark){:root{--bg:#18181b;--card:#27272a;--ink:#fafafa;--mut:#a1a1aa;--line:#3f3f46;--p:#8b8ff5;--pb:#6d71f026}}
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1c1917;--mut:#6b645c;--line:#e6e0d6;--p:#0f7a55;--pb:#e2f2ea;
+  --nb:#fdf3df;--nl:#f0d9a6;--nk:#7a4a06;
+  --admin:#0f7a55;--admin-b:#e2f2ea;--manager:#b45309;--manager-b:#fdf0dc;--staff:#1d6fa5;--staff-b:#e3eff8;--public:#57534e;--public-b:#eeebe6}
+@media (prefers-color-scheme:dark){:root{--bg:#151412;--card:#1f1d1a;--ink:#f5f2ec;--mut:#a59e95;--line:#35312b;--p:#3fbf8c;--pb:#3fbf8c1f;
+  --nb:#3a2a0f;--nl:#5c4417;--nk:#f6d595;
+  --admin:#3fbf8c;--admin-b:#3fbf8c1f;--manager:#f0a24a;--manager-b:#f0a24a1f;--staff:#5fb0e6;--staff-b:#5fb0e61f;--public:#bdb6ad;--public-b:#bdb6ad1a}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Instrument Sans',ui-sans-serif,system-ui,'Segoe UI',sans-serif}
-main{max-width:56rem;margin:0 auto;padding:3.5rem 1.2rem 4rem}
-.logo{display:inline-grid;place-items:center;width:2.6rem;height:2.6rem;border-radius:.8rem;background:var(--p);color:#fff;font-weight:700;font-size:1.2rem}
-h1{font-size:2.1rem;letter-spacing:-.02em;margin:1rem 0 .4rem}
+main{max-width:64rem;margin:0 auto;padding:1.25rem 1.2rem 4rem}
+.top{display:flex;align-items:center;gap:.6rem;padding-bottom:1.1rem;margin-bottom:2rem;border-bottom:1px solid var(--line)}
+.top b{font-size:1.05rem}.top .sp{flex:1}
+.logo{display:inline-grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:.65rem;background:var(--p);color:#fff;font-weight:700;font-size:1rem}
+h1{font-size:2.1rem;letter-spacing:-.02em;margin:0 0 .4rem}
+@media (max-width:640px){h1{font-size:1.6rem}.top{margin-bottom:1.4rem}}
 .lead{color:var(--mut);max-width:40rem;margin:0}
-.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin:2rem 0}
-a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.2rem;transition:.15s}
-a.card:hover{border-color:var(--p);transform:translateY(-2px);box-shadow:0 8px 24px #0002}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(4,minmax(0,1fr));margin:1.5rem 0 2rem}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+a.card{--c:var(--p);--cb:var(--pb);display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:.9rem;padding:1.1rem 1.2rem 1.2rem;transition:.15s}
+a.card:hover{border-color:var(--c);transform:translateY(-3px);box-shadow:0 12px 28px -12px #0004}
+a.card .go{display:inline-block;margin-top:.8rem;font-size:.85rem;font-weight:600;color:var(--c)}
+a.card:hover .go{text-decoration:underline}
+a.card.admin{--c:var(--admin);--cb:var(--admin-b)}a.card.manager{--c:var(--manager);--cb:var(--manager-b)}a.card.staff{--c:var(--staff);--cb:var(--staff-b)}a.card.public{--c:var(--public);--cb:var(--public-b)}
+.card code{background:var(--cb)!important}
 .tag{display:inline-block;font-size:.72rem;font-weight:600;padding:.1rem .55rem;border-radius:.4rem;background:var(--pb);color:var(--p)}
+.card .tag{background:var(--cb);color:var(--c)}
 .card h2{font-size:1.15rem;margin:.6rem 0 .25rem}.card p{margin:0;color:var(--mut);font-size:.9rem}
 .card code{font-size:.78rem;background:var(--pb);padding:.05rem .35rem;border-radius:.3rem}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.2rem 1.4rem;margin-bottom:1rem}
@@ -25,42 +39,51 @@ a.card:hover{border-color:var(--p);transform:translateY(-2px);box-shadow:0 8px 2
 button{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:.6rem;padding:.5rem .9rem;cursor:pointer}
 button:hover{border-color:var(--p)}
 small{color:var(--mut)}
+.note{margin:1rem 0 0;max-width:42rem;padding:.75rem 1rem;border-radius:.75rem;background:var(--nb);border:1px solid var(--nl);color:var(--nk);font-size:.92rem}
+.note b{color:inherit}
+h1 em{font-style:normal;color:var(--p)}
 </style>
 </head>
 <body>
 <main>
-  <span class="logo">S</span>
-  <h1>Inventory — interactive demo</h1>
-  <p class="lead">A click-through copy of the Laravel inventory &amp; POS app, built from the real pages of the running app with the seeded sample data. Nothing is sent to a server: any change you make is kept only in this browser.</p>
+  <header class="top">
+    <span class="logo">I</span><b>Inventory</b><span class="tag">Live preview</span>
+    <span class="sp"></span><button type="button" class="reset">Reset data</button>
+  </header>
+  <h1>Inventory — <em>interactive demo</em></h1>
+  <p class="lead">Try the inventory &amp; POS app with sample data. Pick a role below to start.</p>
+  <p class="note"><b>Demo mode:</b> this preview runs entirely in your browser. Changes you make (sales, products, customers…) are saved only on this device and never sent to a server. Use <b>Reset data</b> to restore the sample data at any time.</p>
 
   <div class="grid">
-    <a class="card" href="admin/dashboard/index.html"><span class="tag">Full access</span><h2>Admin</h2><p>Everything: partnership, settings, users, roles, warehouses.</p><p style="margin-top:.6rem"><code>admin@inventory.com</code></p></a>
-    <a class="card" href="manager/dashboard/index.html"><span class="tag">Operations</span><h2>Manager</h2><p>Sales, purchasing, stock, reports and finance, without admin-only areas.</p><p style="margin-top:.6rem"><code>manager@inventory.com</code></p></a>
-    <a class="card" href="staff/dashboard/index.html"><span class="tag">Counter</span><h2>Staff</h2><p>POS terminal, stock count, customers, invoices and their own shift.</p><p style="margin-top:.6rem"><code>staff@inventory.com</code></p></a>
-    <a class="card" href="guest/login/index.html"><span class="tag">Public</span><h2>Sign-in page</h2><p>The login screen. Any password works here; the email picks the role.</p></a>
+    <a class="card admin" href="admin/dashboard/index.html"><span class="tag">Full access</span><h2>Admin</h2><p>Everything: partnership, settings, users, roles, warehouses.</p><p style="margin-top:.6rem"><code>admin@inventory.com</code></p><span class="go">Open as Admin →</span></a>
+    <a class="card manager" href="manager/dashboard/index.html"><span class="tag">Operations</span><h2>Manager</h2><p>Sales, purchasing, stock, reports and finance, without admin-only areas.</p><p style="margin-top:.6rem"><code>manager@inventory.com</code></p><span class="go">Open as Manager →</span></a>
+    <a class="card staff" href="staff/dashboard/index.html"><span class="tag">Counter</span><h2>Staff</h2><p>POS terminal, stock count, customers, invoices and their own shift.</p><p style="margin-top:.6rem"><code>staff@inventory.com</code></p><span class="go">Open as Staff →</span></a>
+    <a class="card public" href="guest/login/index.html"><span class="tag">Public</span><h2>Sign-in page</h2><p>The login screen. Any password works here; the email picks the role.</p><span class="go">Open sign-in page →</span></a>
   </div>
 
   <div class="panel"><h3>What works in the demo</h3>
     <ul>
-      <li>Every page, menu and dialog looks exactly like the real app (same compiled CSS, fonts and markup).</li>
-      <li>Switch role any time with the pill at the bottom-left of each page.</li>
-      <li>Search and filters on lists, delete confirmations, form validation, and “saving” that sticks in your browser.</li>
-      <li>Dark / light mode from the account menu.</li>
+      <li><b>POS:</b> search or scan products, weigh loose goods, discounts, hold &amp; resume, cash / card / mobile / bank or due payments, and a printable receipt.</li>
+      <li><b>Invoices &amp; purchases:</b> line items with live totals; save as draft, send, mark paid or place an order.</li>
+      <li><b>Products, customers, suppliers and more:</b> add, edit and delete; changes show in lists, searches and the POS.</li>
+      <li>Search, filters, sorting and pagination on lists; stock goes down as you sell.</li>
+      <li>Switch role any time from the bar at the bottom-left; dark / light mode from the account menu.</li>
     </ul>
   </div>
-  <div class="panel"><h3>What does not</h3>
+  <div class="panel"><h3>Limited in the demo</h3>
     <ul>
-      <li>There is no database or server, so lists don't re-sort or paginate, and new records don't appear in tables.</li>
-      <li>Payments, SMS, PDF downloads and imports are not wired up.</li>
+      <li>Reports and dashboards show the sample figures.</li>
+      <li>Receiving stock on purchase orders, split payments, SMS, emails, PDF downloads and imports need the full app.</li>
     </ul>
   </div>
-  <p><button type="button" id="reset">Reset demo data</button> <small id="msg"></small></p>
+  <p><button type="button" class="reset">Reset data</button> <small id="msg"></small></p>
 </main>
 <script>
-document.getElementById('reset').onclick=function(){
+document.querySelectorAll('.reset').forEach(function(b){b.onclick=function(){
   try{Object.keys(localStorage).filter(function(k){return k.indexOf('swiftdemo:')===0}).forEach(function(k){localStorage.removeItem(k)});}catch(e){}
-  document.getElementById('msg').textContent='Done: everything stored by the demo was cleared.';
-};
+  document.getElementById('msg').textContent='Done: the sample data is back.';
+  b.textContent='Reset ✓';setTimeout(function(){b.textContent='Reset data'},2000);
+};});
 </script>
 </body>
 </html>
