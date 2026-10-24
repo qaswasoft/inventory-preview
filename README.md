@@ -1,5 +1,7 @@
 # Inventory: interactive demo
 
+A product of **[Qaswasoft](https://github.com/qaswasoft)**. Live preview: https://qaswasoft.github.io/inventory-preview/
+
 A static, click-through copy of the Laravel inventory & POS app for GitHub Pages. The pages are real
 server-rendered snapshots of the running app (same compiled CSS, fonts and markup) with the seeded sample data.
 A small demo layer (`demo/*.js`) replaces the server: search dropdowns, a working POS, invoice and purchase forms,

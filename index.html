@@ -20,6 +20,8 @@ main{max-width:64rem;margin:0 auto;padding:1.25rem 1.2rem 4rem}
 .logo{display:inline-grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:.65rem;background:var(--p);color:#fff;font-weight:700;font-size:1rem}
 h1{font-size:2.1rem;letter-spacing:-.02em;margin:0 0 .4rem}
 @media (max-width:640px){h1{font-size:1.6rem}.top{margin-bottom:1.4rem}}
+.top .by,.top .tag{white-space:nowrap}
+@media (max-width:520px){.top .tag,.top .reset{display:none}}
 .lead{color:var(--mut);max-width:40rem;margin:0}
 .grid{display:grid;gap:1rem;grid-template-columns:repeat(4,minmax(0,1fr));margin:1.5rem 0 2rem}
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -41,13 +43,18 @@ button:hover{border-color:var(--p)}
 small{color:var(--mut)}
 .note{margin:1rem 0 0;max-width:42rem;padding:.75rem 1rem;border-radius:.75rem;background:var(--nb);border:1px solid var(--nl);color:var(--nk);font-size:.92rem}
 .note b{color:inherit}
+.top .by{color:var(--mut);font-size:.9rem}.top .by a,.foot a{color:inherit;text-decoration:none;font-weight:600}.top .by a:hover,.foot a:hover{color:var(--p);text-decoration:underline}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
+.foot .brand{display:flex;align-items:center;gap:.7rem}.foot .brand b{display:block;color:var(--ink)}.foot small{display:block}
+.foot .links{display:flex;gap:1.2rem;align-items:center}
+.logo.q{background:var(--ink);color:var(--bg)}
 h1 em{font-style:normal;color:var(--p)}
 </style>
 </head>
 <body>
 <main>
   <header class="top">
-    <span class="logo">I</span><b>Inventory</b><span class="tag">Live preview</span>
+    <span class="logo">I</span><b>Inventory</b><span class="by">by <a href="https://github.com/qaswasoft" target="_blank" rel="noopener">Qaswasoft</a></span><span class="tag">Live preview</span>
     <span class="sp"></span><button type="button" class="reset">Reset data</button>
   </header>
   <h1>Inventory — <em>interactive demo</em></h1>
@@ -77,8 +84,13 @@ h1 em{font-style:normal;color:var(--p)}
     </ul>
   </div>
   <p><button type="button" class="reset">Reset data</button> <small id="msg"></small></p>
+  <footer class="foot">
+    <div class="brand"><span class="logo q">Q</span><div><b>Qaswasoft</b><small>Inventory is designed, built and maintained by Qaswasoft.</small></div></div>
+    <div class="links"><a href="https://github.com/qaswasoft" target="_blank" rel="noopener">GitHub</a><span>© <span id="yr">2026</span> Qaswasoft</span></div>
+  </footer>
 </main>
 <script>
+document.getElementById('yr').textContent=new Date().getFullYear();
 document.querySelectorAll('.reset').forEach(function(b){b.onclick=function(){
   try{Object.keys(localStorage).filter(function(k){return k.indexOf('swiftdemo:')===0}).forEach(function(k){localStorage.removeItem(k)});}catch(e){}
   document.getElementById('msg').textContent='Done: the sample data is back.';

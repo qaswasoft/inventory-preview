@@ -33,7 +33,7 @@
   function bar() {
     var b = document.createElement('div'); b.className = 'demo-bar';
     var roles = ['admin', 'manager', 'staff'];
-    b.innerHTML = '<b>Demo</b>' +
+    b.innerHTML = '<b>Demo</b><a class="demo-brand" href="https://github.com/qaswasoft" target="_blank" rel="noopener" title="Inventory is a product of Qaswasoft">by Qaswasoft</a>' +
       (ROLE === 'guest' ? '' : '<select aria-label="View as role">' + roles.map(function (r) { return '<option value="' + r + '"' + (r === ROLE ? ' selected' : '') + '>View as ' + r + '</option>'; }).join('') + '</select>') +
       '<button type="button" data-demo="reset" title="Forget everything stored in this browser">Reset data</button><a href="' + ROOT + 'index.html">Start</a><button type="button" class="demo-x" data-demo="min" aria-label="Collapse">×</button>';
     document.body.appendChild(b);
