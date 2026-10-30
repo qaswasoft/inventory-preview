@@ -1,4 +1,4 @@
-/* Swift Inventory demo layer.
+/* Inventory demo layer.
  * The pages are real server-rendered snapshots of the Laravel app. This script adds just enough behaviour
  * to make them feel alive without a server: role switching, login/logout, search + filters, delete dialogs,
  * form validation and "saving". Everything is kept in this browser's localStorage and can be reset. */

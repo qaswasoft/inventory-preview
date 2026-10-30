@@ -1,4 +1,4 @@
-/* Swift Inventory demo - live search dropdowns (stand-in for the Livewire search results).
+/* Inventory demo - live search dropdowns (stand-in for the Livewire search results).
  *
  * DemoSearch.attach(el, cfg) turns a search box (the app's contenteditable <x-search-select> or a plain <input>)
  * into a live-results dropdown: name / SKU / barcode / phone matching, arrow keys + Enter, click to pick,

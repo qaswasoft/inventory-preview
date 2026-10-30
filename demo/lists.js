@@ -1,4 +1,4 @@
-/* Swift Inventory demo - list pages: column sort, 15-per-page pagination and rows kept in step with DemoDB.
+/* Inventory demo - list pages: column sort, 15-per-page pagination and rows kept in step with DemoDB.
  *
  * Works on every table whose body is <tbody data-flux-rows>. Row visibility from the other scripts is respected:
  * demo.js search sets style.display, search.js filter selects add .demo-fhide; this file only adds .demo-phide

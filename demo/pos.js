@@ -1,4 +1,4 @@
-/* Swift Inventory demo - the POS terminal without a server (stand-in for app/Livewire/Pos/PosTerminal.php).
+/* Inventory demo - the POS terminal without a server (stand-in for app/Livewire/Pos/PosTerminal.php).
  *
  * The page's own Alpine code already derives every total from $wire.cart / discount / tax / courier, so this
  * file keeps that state in DemoWire, draws the cart rows (the Blade loop is server-side), and implements the
@@ -377,7 +377,7 @@
       var phone = ph ? ph.value.trim() : '', name = nm ? nm.value.trim() : '';
       if (!phone || !name) { toast('Phone and name are required.', 'danger'); (phone ? nm : ph).focus(); return; }
       if (DB.all('customers').some(function (c) { return String(c.phone).replace(/\D/g, '') === phone.replace(/\D/g, ''); })) { toast('A customer with this phone already exists.', 'danger'); ph.focus(); return; }
-      var c = DB.save('customers', { name: name, phone: phone, email: '', city: '', country: 'Bangladesh', is_active: true, orders: 0, spent: 0, balance: 0 });
+      var c = DB.save('customers', { name: name, phone: phone, email: '', city: '', country: '', is_active: true, orders: 0, spent: 0, balance: 0 });
       c = DB.save('customers', { id: c.id, member_no: memberNo(c) });
       closeModal('register');
       selectCustomerById(c.id);

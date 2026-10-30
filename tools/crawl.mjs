@@ -19,7 +19,7 @@ import {execFileSync} from 'node:child_process';
 
 const BASE = (process.env.BASE || 'http://127.0.0.1:8000').replace(/\/$/, '');
 const here = path.dirname(fileURLToPath(import.meta.url));
-const PROJECT = path.resolve(here, process.env.PROJECT || '../../inventory-management');
+const PROJECT = path.resolve(here, process.env.PROJECT || '../../../../inventory-management');
 const OUT = path.join(here, 'raw');
 const PASSWORD = process.env.PASSWORD || 'password';
 const MAX = Number(process.env.MAX || 500);

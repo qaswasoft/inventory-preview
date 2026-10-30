@@ -1,4 +1,4 @@
-/* Swift Inventory demo - printable receipts for sales made in the demo.
+/* Inventory demo - printable receipts for sales made in the demo.
  *
  * Invoices created in the browser (POS sale, invoice form) have no page of their own, so their receipt opens a
  * seeded receipt page with ?id=<invoice id> and this file redraws it from DemoDB, following

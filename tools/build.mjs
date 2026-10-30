@@ -95,7 +95,7 @@ async function main() {
   if (!ctx.fonts) console.warn('WARNING: no fonts-*.css found in the Vite manifest; text will fall back to system fonts.');
   ctx.vendor = await exists(path.join(ROOT, 'demo', 'vendor', 'alpine.min.js'));
   ctx.demoFiles = (await fs.readdir(path.join(ROOT, 'demo'))).filter(f => f.endsWith('.js'));
-  console.log(ctx.vendor ? 'Alpine: using demo/vendor (offline).' : 'WARNING: demo/vendor/alpine.min.js not found, so Alpine loads from the jsDelivr CDN (see HANDOFF.md, T0).');
+  console.log(ctx.vendor ? 'Alpine: using demo/vendor (offline).' : 'WARNING: demo/vendor/alpine.min.js not found, so Alpine loads from the jsDelivr CDN.');
   console.log('Demo scripts found: ' + ctx.demoFiles.join(', '));
 
   for (const d of ['admin', 'manager', 'staff', 'guest', 'build', 'flux']) await fs.rm(path.join(ROOT, d), {recursive: true, force: true});

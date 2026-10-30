@@ -1,4 +1,4 @@
-/* Swift Inventory demo - forms without a server.
+/* Inventory demo - forms without a server.
  *
  * 1. Create / edit forms of customers, products, suppliers, categories, warehouses and payment accounts save to
  *    DemoDB (demo.js calls DemoForms.save on submit) and prefill from it, so the record shows up in its list, in

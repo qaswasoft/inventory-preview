@@ -1,4 +1,4 @@
-/* Swift Inventory demo: client-side stand-in for Livewire's `$wire` magic.
+/* Inventory demo: client-side stand-in for Livewire's `$wire` magic.
  *
  * The real POS and invoice screens run Alpine code such as `this.$wire.cart[i]` or `$wire.completeSale()`.
  * Livewire (the server round-trip) does not exist on a static site, so those calls used to throw.

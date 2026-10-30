@@ -1,4 +1,4 @@
-/* Swift Inventory demo - DemoDB: a tiny record store in localStorage, seeded from window.DEMO_DATA (demo/data.js).
+/* Inventory demo - DemoDB: a tiny record store in localStorage, seeded from window.DEMO_DATA (demo/data.js).
  * Keys: swiftdemo:v1:db:<table>. The Reset button in demo.js removes every swiftdemo:v1: key, so the next read
  * falls back to the seed again. Changes fire a 'demodb:change' event on window ({detail: {table, action, record}}). */
 (function () {

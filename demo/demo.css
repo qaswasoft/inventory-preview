@@ -41,7 +41,7 @@
   .flex.justify-between:has(> * [data-flux-heading]):has(> * [data-flux-button]){flex-wrap:wrap;row-gap:.75rem}
   ui-field{grid-template-columns:minmax(0,1fr)}
   ui-field > ui-label{max-width:100%}
-  table.items{display:block;overflow-x:auto} /* the printable VAT (Mushak) invoice */
+  table.items{display:block;overflow-x:auto} /* printable item tables (receipt) */
 }
 
 tr.demo-empty td{padding:2rem 1rem;text-align:center;color:#71717a;font-size:.875rem}
