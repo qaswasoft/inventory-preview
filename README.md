@@ -1,6 +1,27 @@
-# Inventory: interactive demo
+# Inventory & POS – Laravel Inventory Management System
 
-A product of **[Qaswasoft](https://github.com/qaswasoft)**. Live preview: https://qaswasoft.github.io/inventory-preview/
+**Live demo: https://qaswasoft.github.io/inventory-preview/** · by **[Qaswasoft](https://github.com/qaswasoft)**
+
+![Inventory & POS – Laravel inventory management system](og-image.png)
+
+**Inventory** is a self-hosted inventory management system and point of sale (POS) for shops, built with
+**Laravel 13, Livewire 4, Flux UI and Tailwind CSS**. Sell at the counter, keep stock right, buy from suppliers
+and see what you earn, from one fast single-page app.
+
+- **POS:** barcode scanning, loose goods by weight, discounts and promotions, hold and resume, cash, card,
+  mobile wallet, bank, split payment or sell on due, printable 80 mm receipts.
+- **Stock:** multiple warehouses, batches and expiry dates (earliest expiry sold first), transfers, stock counts,
+  low-stock alerts, weighted-average costing.
+- **Purchases:** purchase orders, partial receiving, supplier payments and returns, supplier balances.
+- **Customers:** dues with credit limits, member rewards, SMS campaigns.
+- **Money:** cash shifts with Z-report, expenses, payment accounts, sales, due and profit & loss reports.
+- **Team:** admin, manager and staff roles; light and dark mode; your logo and colours.
+
+**Get it:** coming soon on CodeCanyon.
+
+---
+
+## About this demo
 
 A static, click-through copy of the Laravel inventory & POS app for GitHub Pages. The pages are real
 server-rendered snapshots of the running app (same compiled CSS, fonts and markup) with the seeded sample data.

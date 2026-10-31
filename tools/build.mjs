@@ -66,7 +66,8 @@ function transform(html, role, p, saved, ctx) {
       missing++;
       return `${attr}="#"`;
     });
-  const head = `<link rel="stylesheet" href="${toRoot}demo/demo.css">`;
+  // Snapshot pages are near-duplicates of each other; only the landing page (index.html) should be in search results.
+  const head = `<meta name="robots" content="noindex, follow"><link rel="stylesheet" href="${toRoot}demo/demo.css">`;
   // Optional demo modules (added by later tasks); each one is injected only if the file exists.
   const extra = ['data.js', 'store.js', 'receipt.js', 'search.js', 'lists.js', 'pos.js', 'forms.js'].filter(f => ctx.demoFiles.includes(f)).map(f => `<script defer src="${toRoot}demo/${f}"></script>`).join('');
   const tail = extra + `<script defer src="${toRoot}demo/demo.js" data-role="${role}" data-path="${p}" data-root="${toRoot}"></script>`;
