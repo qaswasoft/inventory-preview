@@ -22,7 +22,8 @@
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var num = function (v) { var n = parseFloat(String(v == null ? '' : v).replace(/,/g, '')); return isFinite(n) ? n : 0; };
   var money = function (n) { return CUR + num(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
-  var round2 = function (n) { return Math.round(n * 100) / 100; };
+  // Rounds like PHP round(): to 15 significant digits first, then half away from zero.
+  var round2 = function (n) { return Math.sign(n) * Math.round(Number((Math.abs(n) * 100).toPrecision(15))) / 100; };
   var fmtQty = function (n) { return (Math.round(num(n) * 1000) / 1000).toLocaleString('en-US', { maximumFractionDigits: 3 }); };
   var toast = function (t, v) { if (window.DemoToast) window.DemoToast(t, v || 'success'); };
   var memberNo = function (c) { return c.member_no || 'MEM-' + String(c.id).padStart(6, '0'); };
@@ -39,9 +40,12 @@
   function totals() {
     var items = cart(), net = function (i) { return num(i.price) * num(i.quantity) - num(i.discount) * num(i.quantity); };
     var subtotal = items.reduce(function (s, i) { return s + net(i); }, 0);
-    var tax = items.reduce(function (s, i) { return s + net(i) * num(i.tax_rate) / 100; }, 0) + num(W.get('tax'));
+    var bill = num(W.get('discount')) + num(W.get('membershipDiscount'));
+    var lineTax = items.reduce(function (s, i) { return s + net(i) * num(i.tax_rate) / 100; }, 0);
+    // The bill discount lowers the line tax by the same share (PricingService::discountTax()).
+    var tax = lineTax * (subtotal > 0 ? Math.max(0, 1 - bill / subtotal) : 1) + num(W.get('tax'));
     var courier = W.get('hasCourier') ? num(W.get('courierCharge')) : 0;
-    return { subtotal: subtotal, tax: tax, courier: courier, total: round2(Math.max(0, subtotal - num(W.get('discount')) - num(W.get('membershipDiscount')) + tax + courier)) };
+    return { subtotal: subtotal, tax: tax, courier: courier, total: round2(Math.max(0, subtotal - bill + tax + courier)) };
   }
   // Per-unit discount, as PricingService::productDiscount() (no promotions in the demo data).
   function unitDiscount(p) { return p.discount_type === 'fixed' ? num(p.discount) : num(p.price) * num(p.discount) / 100; }

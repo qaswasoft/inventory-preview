@@ -23,7 +23,8 @@
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var num = function (v) { var n = parseFloat(String(v == null ? '' : v).replace(/,/g, '')); return isFinite(n) ? n : 0; };
   var money = function (n) { return CUR + num(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
-  var round2 = function (n) { return Math.round(n * 100) / 100; };
+  // Rounds like PHP round(): to 15 significant digits first, then half away from zero.
+  var round2 = function (n) { return Math.sign(n) * Math.round(Number((Math.abs(n) * 100).toPrecision(15))) / 100; };
   var toast = function (t, v) { if (window.DemoToast) window.DemoToast(t, v || 'success'); };
   var go = function (path) { setTimeout(function () { location.href = ROOT + ROLE + path + '/index.html'; }, 700); };
 
@@ -185,9 +186,12 @@
 
     function totals() {
       var list = W.get('items') || [], sub = list.reduce(function (s, i) { return s + net(i); }, 0);
-      var tax = (INV ? list.reduce(function (s, i) { return s + net(i) * num(i.tax_rate) / 100; }, 0) : 0) + num(W.get('tax'));
+      var bill = num(W.get('discount'));
+      var lineTax = INV ? list.reduce(function (s, i) { return s + net(i) * num(i.tax_rate) / 100; }, 0) : 0;
+      // The bill discount lowers the line tax by the same share (PricingService::discountTax()).
+      var tax = lineTax * (sub > 0 ? Math.max(0, 1 - bill / sub) : 1) + num(W.get('tax'));
       var courier = W.get('hasCourier') ? num(W.get('courierCharge')) : 0;
-      return { subtotal: sub, total: round2(Math.max(0, sub - num(W.get('discount')) + tax + courier)) };
+      return { subtotal: sub, total: round2(Math.max(0, sub - bill + tax + courier)) };
     }
     var val = function (n) { var el = $('[name="' + n + '"]'); return el ? el.value.trim() : ''; };
     var opt = function (n) { var el = $('select[name="' + n + '"]'); return el && el.selectedIndex > -1 && el.value ? el.options[el.selectedIndex].text.trim() : ''; };
