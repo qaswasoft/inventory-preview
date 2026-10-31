@@ -4,6 +4,10 @@
 //
 // Writes  <role>/<path>/index.html  for guest, admin, manager, staff,  build/  (compiled CSS, fonts, JS)
 // and  flux/flux.js.  index.html and demo/ (landing page + interactivity) are hand-written and never touched.
+//
+// The app's hashed bundles are saved under fixed names (build/assets/app.css, app.js, fonts.css) and every page
+// points at those, whatever hash it was crawled with. So after a CSS/JS change, re-crawling only the changed
+// pages (ONLY=... node tools/crawl.mjs) is enough: the untouched pages pick up the new bundles too.
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -14,6 +18,9 @@ const ROOT = path.resolve(here, '..');
 const RAW = path.join(here, 'raw');
 const ALPINE = '3.14.9';
 const PRODUCT = 'Inventory'; // product name shown in tab titles and the mobile header (the app's APP_NAME)
+
+// Fixed names for the hashed Vite bundles (see the note at the top).
+const FIXED = {'app.css': 'assets/app.css', 'app.js': 'assets/app.js', 'fonts.css': 'assets/fonts.css'};
 
 const exists = async p => { try { await fs.access(p); return true; } catch { return false; } };
 // Alpine: use demo/vendor/* when present (offline, no CDN), otherwise fall back to jsDelivr.
@@ -46,6 +53,8 @@ function transform(html, role, p, saved, ctx) {
       (ctx.demoFiles.includes('wire.js') ? `<script defer src="${toRoot}demo/wire.js"></script>` : '') +
       ['persist', 'focus', 'collapse', 'anchor'].map(n => `<script defer src="${alpineSrc(toRoot, ctx, '@alpinejs/' + n, 'alpine-' + n)}"></script>`).join('') +
       `<script src="${toRoot}flux/flux.js"></script><script defer src="${alpineSrc(toRoot, ctx, 'alpinejs', 'alpine')}"></script>`)
+    // built files: the main bundles by their fixed names (any crawled hash), everything else as-is
+    .replace(/(href|src)="(?:[^"]*?)\/build\/assets\/(app|fonts)-[^"/]*\.(css|js)"/g, (all, attr, name, ext) => `${attr}="${toRoot}build/${FIXED[name + '.' + ext] || 'assets/' + name + '.' + ext}"`)
     .replace(/(href|src)="(?:[^"]*?)\/build\/(assets\/[^"]*)"/g, `$1="${toRoot}build/$2"`)
     .replace(new RegExp(`(href|src)="(?:${base})?/(favicon[^"]*|apple-touch-icon[^"]*)"`, 'g'), `$1="${toRoot}$2"`)
     // page links -> relative links to the saved pages
@@ -86,13 +95,18 @@ async function main() {
   const manifest = JSON.parse(await fs.readFile(path.join(RAW, 'manifest.json'), 'utf8'));
   const buildSrc = path.join(RAW, '_assets', 'build');
   const vite = JSON.parse(await fs.readFile(path.join(buildSrc, 'manifest.json'), 'utf8'));
+  const hashed = {
+    'app.css': vite['resources/css/app.css'].file,
+    'app.js': vite['resources/js/app.js'].file,
+    'fonts.css': (Object.values(vite).find(e => /^assets\/fonts-.*\.css$/.test(e.file)) || {}).file || '',
+  };
+  if (!hashed['fonts.css']) console.warn('WARNING: no fonts-*.css found in the Vite manifest; text will fall back to system fonts.');
   const ctx = {
     base: manifest.base,
-    css: vite['resources/css/app.css'].file,
-    js: vite['resources/js/app.js'].file,
-    fonts: (Object.values(vite).find(e => /^assets\/fonts-.*\.css$/.test(e.file)) || {}).file || '',
+    css: FIXED['app.css'],
+    js: FIXED['app.js'],
+    fonts: hashed['fonts.css'] ? FIXED['fonts.css'] : '',
   };
-  if (!ctx.fonts) console.warn('WARNING: no fonts-*.css found in the Vite manifest; text will fall back to system fonts.');
   ctx.vendor = await exists(path.join(ROOT, 'demo', 'vendor', 'alpine.min.js'));
   ctx.demoFiles = (await fs.readdir(path.join(ROOT, 'demo'))).filter(f => f.endsWith('.js'));
   console.log(ctx.vendor ? 'Alpine: using demo/vendor (offline).' : 'WARNING: demo/vendor/alpine.min.js not found, so Alpine loads from the jsDelivr CDN.');
@@ -102,6 +116,9 @@ async function main() {
 
   // compiled assets (make font URLs relative so they work under a GitHub Pages sub-path)
   await fs.cp(buildSrc, path.join(ROOT, 'build'), {recursive: true});
+  for (const [name, file] of Object.entries(hashed)) {
+    if (file) await fs.rename(path.join(ROOT, 'build', file), path.join(ROOT, 'build', FIXED[name]));
+  }
   const assets = path.join(ROOT, 'build', 'assets');
   for (const f of await fs.readdir(assets)) {
     if (!f.endsWith('.css')) continue;

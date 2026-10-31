@@ -46,6 +46,16 @@ node tools/build.mjs         # builds the site into admin/ manager/ staff/ guest
 `tools/raw` is git-ignored. `index.html` and `demo/` are hand-written and not touched by the build. Never edit
 the generated folders by hand: change `tools/build.mjs` (or a file in `demo/`) and rebuild.
 
+**Small change in the app?** After one full crawl, re-crawl only the pages whose markup changed. The compiled
+CSS/JS is always refreshed and saved under fixed names, so every other page picks it up too:
+```bash
+npm run build                          # in the Laravel project, if CSS/JS changed
+ONLY=pos node tools/crawl.mjs          # comma-separate several: ONLY=pos,invoices/1
+node tools/build.mjs
+```
+Write the paths without a leading slash (Git Bash turns `/pos` into a Windows path). Use the same `BASE` as
+the full crawl. Re-run `extract-data.mjs` only if the sample records changed.
+
 ## Layout
 - `index.html`: landing page (pick a role)
 - `admin/ manager/ staff/ guest/`: the app pages (`<role>/<route>/index.html`)

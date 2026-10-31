@@ -9,7 +9,10 @@
 // HTML page untouched in tools/raw/<role>/<path>/index.html.
 //
 // Optional env vars: BASE (default http://127.0.0.1:8000), PROJECT (path to the Laravel project),
-//                    PASSWORD (default "password"), MAX (max pages per role, default 500)
+//                    PASSWORD (default "password"), MAX (max pages per role, default 500),
+//                    ONLY (comma-separated paths, e.g. "pos,invoices/33"): re-crawl just those pages for
+//                    every role and keep everything else already in tools/raw. The compiled assets are always
+//                    refreshed, so a CSS/JS change needs only the pages whose markup changed.
 // Needs Node 18+. No npm packages.
 
 import fs from 'node:fs/promises';
@@ -23,6 +26,13 @@ const PROJECT = path.resolve(here, process.env.PROJECT || '../../../../inventory
 const OUT = path.join(here, 'raw');
 const PASSWORD = process.env.PASSWORD || 'password';
 const MAX = Number(process.env.MAX || 500);
+// Paths may be written without the leading slash ("pos,invoices/33"): Git Bash rewrites "/pos" into a Windows path.
+const ONLY = (process.env.ONLY || '').split(',').map(s => s.trim()).filter(Boolean)
+  .map(s => ('/' + s.replace(/^\/+/, '')).replace(/(.)\/$/, '$1'));
+if (ONLY.some(p => /^\/[A-Za-z]:\//.test(p))) {
+  console.error('ONLY looks like a Windows path (Git Bash converts "/pos"). Write it without the slash: ONLY=pos');
+  process.exit(1);
+}
 const USERS = {admin: 'admin@inventory.com', manager: 'manager@inventory.com', staff: 'staff@inventory.com'};
 const SKIP = /^\/(logout|build|flux|livewire|storage|up|sanctum|api)(\/|$)|\.(png|jpe?g|gif|svg|ico|css|js|pdf|webp|woff2?)$/i;
 const ORIGIN = new URL(BASE).origin;
@@ -81,7 +91,7 @@ const fileFor = (role, p) => path.join(OUT, role, ...(p === '/' ? [] : p.split('
 async function crawl(role, email, seeds) {
   const jar = new Jar(), pages = {}, skipped = [];
   if (email) await login(jar, email);
-  const queue = email ? ['/dashboard', ...seeds] : ['/login', '/register', '/forgot-password'], seen = new Set();
+  const queue = ONLY.length ? [...ONLY] : email ? ['/dashboard', ...seeds] : ['/login', '/forgot-password'], seen = new Set();
   while (queue.length && Object.keys(pages).length < MAX) {
     const p = queue.shift();
     if (seen.has(p)) continue;
@@ -100,6 +110,7 @@ async function crawl(role, email, seeds) {
     await fs.mkdir(path.dirname(f), {recursive: true});
     await fs.writeFile(f, html);
     console.log(`[${role}] ${finalPath}${finalPath !== p ? '  (from ' + p + ')' : ''}`);
+    if (ONLY.length) continue; // partial re-crawl: just the listed pages
     for (const m of html.matchAll(/href="([^"#]+)"/g)) {
       let h;
       try { h = new URL(m[1].replace(/&amp;/g, '&'), url); } catch { continue; }
@@ -114,17 +125,32 @@ async function crawl(role, email, seeds) {
 async function main() {
   const buildDir = path.join(PROJECT, 'public', 'build');
   try { await fs.access(buildDir); } catch { throw new Error('Cannot find ' + buildDir + ' - set PROJECT=... or run "npm run build" in the Laravel project first.'); }
-  await fs.rm(OUT, {recursive: true, force: true});
+  let manifest = {base: BASE, roles: {}};
+  if (ONLY.length) {
+    try { manifest = JSON.parse(await fs.readFile(path.join(OUT, 'manifest.json'), 'utf8')); }
+    catch { throw new Error('ONLY needs an earlier full crawl in tools/raw. Run "node tools/crawl.mjs" once without ONLY.'); }
+    if (manifest.base !== BASE) console.warn(`WARNING: the full crawl used ${manifest.base}; use the same BASE or links in the refreshed pages won't be rewritten.`);
+    console.log('Partial re-crawl: ' + ONLY.join(', '));
+  } else {
+    await fs.rm(OUT, {recursive: true, force: true});
+  }
+  await fs.rm(path.join(OUT, '_assets', 'build'), {recursive: true, force: true});
   await fs.mkdir(path.join(OUT, '_assets'), {recursive: true});
-  const seeds = routeSeeds();
-  console.log(`Seeds from route:list: ${seeds.length}`);
-  const manifest = {base: BASE, roles: {}};
+  const seeds = ONLY.length ? [] : routeSeeds();
+  if (!ONLY.length) console.log(`Seeds from route:list: ${seeds.length}`);
   for (const [role, email] of [['guest', null], ...Object.entries(USERS)]) {
     try {
       const {pages, skipped} = await crawl(role, email, seeds);
-      manifest.roles[role] = {pages: Object.keys(pages), skipped};
-      console.log(`[${role}] saved ${Object.keys(pages).length} pages, skipped ${skipped.length}`);
-    } catch (e) { console.error(`[${role}] FAILED: ${e.message}`); manifest.roles[role] = {error: e.message}; }
+      if (ONLY.length) {
+        // Keep the role's other pages; a listed page the role can't open stays out.
+        const {error, ...kept} = manifest.roles[role] || {};
+        manifest.roles[role] = {...kept, pages: [...new Set([...(kept.pages || []), ...Object.keys(pages)])]};
+        console.log(`[${role}] refreshed ${Object.keys(pages).length} of ${ONLY.length}`);
+      } else {
+        manifest.roles[role] = {pages: Object.keys(pages), skipped};
+        console.log(`[${role}] saved ${Object.keys(pages).length} pages, skipped ${skipped.length}`);
+      }
+    } catch (e) { console.error(`[${role}] FAILED: ${e.message}`); manifest.roles[role] = {...manifest.roles[role], error: e.message}; }
   }
   // Flux's JavaScript (served by the app at /flux/flux.js) + the compiled assets
   try {
